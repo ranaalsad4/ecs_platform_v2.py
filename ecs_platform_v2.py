@@ -13,100 +13,246 @@ import plotly.express as px
 
 st.markdown("""
 <style>
-    .main {
-        background: linear-gradient(180deg, #f7f9fc 0%, #eef4fb 100%);
+    .stApp {
+        background: #f4f7fb;
     }
 
-    .hero-box {
-        background: linear-gradient(135deg, #123c73 0%, #1f5fa8 55%, #4f8edc 100%);
-        padding: 2.2rem 2rem;
-        border-radius: 22px;
-        color: white;
-        box-shadow: 0 12px 30px rgba(18, 60, 115, 0.18);
-        margin-bottom: 1.25rem;
+    section[data-testid="stSidebar"] {
+        background: linear-gradient(180deg, #f8fafc 0%, #eef3f9 100%);
+        border-right: 1px solid #dce6f2;
+    }
+
+    .block-container {
+        padding-top: 1.8rem;
+        padding-bottom: 2rem;
+        max-width: 1280px;
+    }
+
+    .top-strip {
+        height: 10px;
+        width: 100%;
+        border-radius: 999px;
+        background: linear-gradient(90deg, #0f3d77 0%, #2d6fbb 55%, #76a9df 100%);
+        margin-bottom: 1rem;
+    }
+
+    .hero-wrap {
+        position: relative;
+        background:
+            linear-gradient(90deg, rgba(9,36,74,0.88) 0%, rgba(18,64,119,0.78) 42%, rgba(36,101,176,0.62) 100%),
+            url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80");
+        background-size: cover;
+        background-position: center;
+        border-radius: 28px;
+        padding: 3.2rem 3rem 2.8rem 3rem;
+        min-height: 330px;
+        box-shadow: 0 18px 40px rgba(22, 58, 112, 0.18);
+        overflow: hidden;
+        margin-bottom: 1.2rem;
+    }
+
+    .hero-kicker {
+        display: inline-block;
+        background: rgba(255,255,255,0.14);
+        color: #ffffff;
+        border: 1px solid rgba(255,255,255,0.22);
+        padding: 0.38rem 0.85rem;
+        border-radius: 999px;
+        font-size: 0.82rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        margin-bottom: 0.85rem;
     }
 
     .hero-title {
-        font-size: 2.6rem;
+        color: #ffffff;
+        font-size: 3rem;
         font-weight: 800;
-        line-height: 1.15;
-        margin-bottom: 0.6rem;
+        line-height: 1.08;
+        max-width: 760px;
+        margin-bottom: 0.9rem;
     }
 
     .hero-subtitle {
+        color: rgba(255,255,255,0.95);
         font-size: 1.08rem;
-        opacity: 0.96;
+        line-height: 1.8;
+        max-width: 800px;
+    }
+
+    .notice-box {
+        background: linear-gradient(135deg, #fff7df 0%, #fff1bf 100%);
+        border-left: 6px solid #c79211;
+        color: #6b5208;
+        padding: 1rem 1.2rem;
+        border-radius: 16px;
+        font-size: 1rem;
         line-height: 1.7;
+        margin: 1rem 0 1.3rem 0;
+        box-shadow: 0 10px 25px rgba(199, 146, 17, 0.08);
     }
 
-    .section-card {
-        background: white;
-        padding: 1.3rem 1.2rem;
-        border-radius: 18px;
-        border: 1px solid #e6edf7;
-        box-shadow: 0 8px 22px rgba(31, 95, 168, 0.08);
-        min-height: 220px;
-        margin-bottom: 1rem;
-    }
-
-    .section-card h3 {
+    .section-heading {
+        font-size: 1.65rem;
+        font-weight: 800;
         color: #163a70;
-        font-size: 1.45rem;
-        margin-bottom: 0.5rem;
+        margin-top: 0.4rem;
+        margin-bottom: 0.9rem;
     }
 
-    .section-card p {
-        color: #374151;
-        line-height: 1.7;
+    .section-subtext {
+        color: #5b6678;
         font-size: 1rem;
+        line-height: 1.75;
+        margin-bottom: 1.1rem;
+        max-width: 860px;
     }
 
-    .mini-tag {
+    .portal-card {
+        background: #ffffff;
+        border: 1px solid #e4ebf5;
+        border-radius: 20px;
+        padding: 1.15rem 1.15rem 1rem 1.15rem;
+        box-shadow: 0 10px 28px rgba(16, 46, 92, 0.07);
+        min-height: 240px;
+        margin-bottom: 1rem;
+    }
+
+    .portal-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 14px 34px rgba(16, 46, 92, 0.10);
+    }
+
+    .card-tag {
         display: inline-block;
-        background: #e9f2ff;
-        color: #174a8b;
-        padding: 0.3rem 0.7rem;
+        background: #e8f0fb;
+        color: #1b4d8f;
         border-radius: 999px;
-        font-size: 0.82rem;
-        font-weight: 600;
-        margin-bottom: 0.8rem;
+        padding: 0.28rem 0.7rem;
+        font-size: 0.78rem;
+        font-weight: 700;
+        margin-bottom: 0.75rem;
     }
 
-    .highlight-box {
-        background: linear-gradient(135deg, #fff7db 0%, #fff0b8 100%);
-        border-left: 6px solid #d4a017;
-        padding: 1rem 1.2rem;
-        border-radius: 14px;
-        margin-top: 1rem;
+    .card-title {
+        color: #163a70;
+        font-size: 1.28rem;
+        font-weight: 800;
+        margin-bottom: 0.45rem;
+        line-height: 1.25;
+    }
+
+    .card-text {
+        color: #4c596d;
+        font-size: 0.98rem;
+        line-height: 1.72;
+    }
+
+    .news-card {
+        background: #ffffff;
+        border: 1px solid #e4ebf5;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 26px rgba(16, 46, 92, 0.08);
         margin-bottom: 1rem;
-        color: #6b4f00;
-        font-size: 1.02rem;
+    }
+
+    .news-image {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        display: block;
+    }
+
+    .news-body {
+        padding: 1rem 1.1rem 1rem 1.1rem;
+    }
+
+    .news-type {
+        color: #2a6bbb;
+        font-size: 0.78rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 0.45rem;
+    }
+
+    .news-title {
+        color: #163a70;
+        font-size: 1.08rem;
+        font-weight: 800;
+        line-height: 1.4;
+        margin-bottom: 0.45rem;
+    }
+
+    .news-text {
+        color: #5a6577;
+        font-size: 0.95rem;
         line-height: 1.7;
     }
 
-    .insight-box {
-        background: linear-gradient(135deg, #edf7ff 0%, #dceeff 100%);
-        border-left: 6px solid #2f6ebd;
-        padding: 1rem 1.2rem;
-        border-radius: 14px;
-        margin-top: 1rem;
-        margin-bottom: 1rem;
-        color: #173b70;
-        font-size: 1rem;
-        line-height: 1.7;
-    }
-
-    .metric-shell {
-        background: white;
+    .resource-card {
+        background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+        border: 1px solid #e1eaf6;
         border-radius: 18px;
-        padding: 0.8rem;
-        box-shadow: 0 8px 18px rgba(0,0,0,0.06);
-        border: 1px solid #edf2f7;
+        padding: 1rem 1rem 0.9rem 1rem;
+        box-shadow: 0 8px 24px rgba(16, 46, 92, 0.06);
+        margin-bottom: 0.9rem;
+        min-height: 150px;
+    }
+
+    .resource-title {
+        color: #173d75;
+        font-size: 1.05rem;
+        font-weight: 800;
+        margin-bottom: 0.45rem;
+    }
+
+    .resource-meta {
+        color: #2d6fbb;
+        font-size: 0.82rem;
+        font-weight: 700;
+        margin-bottom: 0.4rem;
+    }
+
+    .resource-text {
+        color: #556274;
+        font-size: 0.94rem;
+        line-height: 1.65;
+    }
+
+    .quick-link-card {
+        background: linear-gradient(135deg, #163a70 0%, #245ea8 100%);
+        color: white;
+        border-radius: 18px;
+        padding: 1rem 1rem;
+        min-height: 150px;
+        box-shadow: 0 12px 28px rgba(22, 58, 112, 0.18);
+        margin-bottom: 1rem;
+    }
+
+    .quick-link-card h4 {
+        color: white;
+        font-size: 1.08rem;
+        font-weight: 800;
+        margin-bottom: 0.45rem;
+    }
+
+    .quick-link-card p {
+        color: rgba(255,255,255,0.95);
+        line-height: 1.7;
+        font-size: 0.95rem;
+    }
+
+    .stMetric {
+        background: white;
+        border: 1px solid #e4ebf5;
+        border-radius: 18px;
+        padding: 0.8rem 0.9rem;
+        box-shadow: 0 8px 20px rgba(16, 46, 92, 0.05);
     }
 </style>
 """, unsafe_allow_html=True)
-
-
 
 
 
@@ -120,32 +266,342 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# -------------------------------------------------------
-# LOGIN
-# -------------------------------------------------------
-USERNAME = "ecs_demo"
-PASSWORD = "ecs2026"
 
-if "authenticated" not in st.session_state:
-    st.session_state.authenticated = False
 
-if not st.session_state.authenticated:
-    st.title("ECS Stakeholder Learning and Engagement Platform")
-    st.write(
-        "Please enter credentials to access the illustrative ECS stakeholder-facing platform."
-    )
 
-    username = st.text_input("Username")
-    password = st.text_input("Password", type="password")
+st.markdown("""
+<style>
+.page-hero{
+    background: linear-gradient(135deg, #ffffff 0%, #eef5ff 100%);
+    border: 1px solid #dce8f6;
+    border-radius: 24px;
+    padding: 1.6rem 1.6rem 1.3rem 1.6rem;
+    box-shadow: 0 12px 28px rgba(16,46,92,0.06);
+    margin-bottom: 1rem;
+}
+.page-kicker{
+    display:inline-block;
+    background:#e7f0fb;
+    color:#245ea8;
+    border-radius:999px;
+    padding:0.3rem 0.75rem;
+    font-size:0.8rem;
+    font-weight:700;
+    margin-bottom:0.8rem;
+}
+.page-title{
+    font-size:2rem;
+    font-weight:800;
+    color:#163a70;
+    margin-bottom:0.45rem;
+    line-height:1.2;
+}
+.page-subtitle{
+    color:#5a6577;
+    font-size:1rem;
+    line-height:1.75;
+    max-width:860px;
+}
+.page-note{
+    background:linear-gradient(135deg,#fff8e2 0%,#fff1c8 100%);
+    border-left:6px solid #c79211;
+    color:#6a5207;
+    padding:1rem 1.1rem;
+    border-radius:16px;
+    margin:0.8rem 0 1.1rem 0;
+}
+.info-feature-card{
+    background:#ffffff;
+    border:1px solid #e2ebf6;
+    border-radius:18px;
+    padding:1rem;
+    min-height:185px;
+    box-shadow:0 8px 22px rgba(16,46,92,0.05);
+    margin-bottom:1rem;
+}
+.info-feature-tag{
+    display:inline-block;
+    background:#edf4ff;
+    color:#245ea8;
+    border-radius:999px;
+    padding:0.24rem 0.62rem;
+    font-size:0.78rem;
+    font-weight:700;
+    margin-bottom:0.7rem;
+}
+.info-feature-title{
+    color:#173d75;
+    font-size:1.1rem;
+    font-weight:800;
+    margin-bottom:0.4rem;
+    line-height:1.35;
+}
+.info-feature-text{
+    color:#556274;
+    font-size:0.95rem;
+    line-height:1.7;
+}
+</style>
+""", unsafe_allow_html=True)
 
-    if st.button("Login"):
-        if username == USERNAME and password == PASSWORD:
-            st.session_state.authenticated = True
-            st.rerun()
-        else:
-            st.error("Invalid username or password.")
 
-    st.stop()
+
+
+
+
+st.markdown("""
+<style>
+.engage-card{
+    background:white;
+    border:1px solid #e2ebf6;
+    border-radius:16px;
+    padding:1rem;
+    box-shadow:0 8px 20px rgba(16,46,92,0.05);
+    min-height:175px;
+    margin-bottom:1rem;
+}
+.engage-title{
+    font-weight:700;
+    color:#173d75;
+    font-size:1.08rem;
+    margin-bottom:0.5rem;
+}
+.engage-text{
+    color:#5c6a7d;
+    font-size:0.94rem;
+    line-height:1.7;
+}
+.phase-card{
+    background:linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+    border:1px solid #dfe9f6;
+    border-radius:18px;
+    padding:1rem;
+    min-height:210px;
+    box-shadow:0 8px 22px rgba(16,46,92,0.05);
+    margin-bottom:1rem;
+}
+.phase-title{
+    color:#173d75;
+    font-size:1.08rem;
+    font-weight:800;
+    margin-bottom:0.6rem;
+}
+.phase-text{
+    color:#5b6779;
+    font-size:0.94rem;
+    line-height:1.75;
+}
+</style>
+""", unsafe_allow_html=True)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+st.markdown("""
+<style>
+.capacity-highlight-card{
+    background: linear-gradient(180deg, #ffffff 0%, #f7fbff 100%);
+    border: 1px solid #deebf8;
+    border-radius: 18px;
+    padding: 1rem;
+    min-height: 180px;
+    box-shadow: 0 8px 22px rgba(16,46,92,0.05);
+    margin-bottom: 1rem;
+}
+.capacity-highlight-title{
+    color:#173d75;
+    font-size:1.08rem;
+    font-weight:800;
+    margin-bottom:0.5rem;
+}
+.capacity-highlight-text{
+    color:#5b6779;
+    font-size:0.95rem;
+    line-height:1.72;
+}
+</style>
+""", unsafe_allow_html=True)
+
+
+
+st.markdown("""
+<style>
+.sim-hero{
+    background: linear-gradient(135deg, #ffffff 0%, #eef5ff 100%);
+    border: 1px solid #dce8f6;
+    border-radius: 24px;
+    padding: 1.6rem 1.6rem 1.3rem 1.6rem;
+    box-shadow: 0 12px 28px rgba(16,46,92,0.06);
+    margin-bottom: 1rem;
+}
+.sim-kicker{
+    display:inline-block;
+    background:#e7f0fb;
+    color:#245ea8;
+    border-radius:999px;
+    padding:0.3rem 0.75rem;
+    font-size:0.8rem;
+    font-weight:700;
+    margin-bottom:0.8rem;
+}
+.sim-title{
+    font-size:2rem;
+    font-weight:800;
+    color:#163a70;
+    margin-bottom:0.45rem;
+    line-height:1.2;
+}
+.sim-subtitle{
+    color:#5a6577;
+    font-size:1rem;
+    line-height:1.75;
+    max-width:920px;
+}
+.sim-note{
+    background:linear-gradient(135deg,#edf6ff 0%,#dcecff 100%);
+    border-left:6px solid #2a6bbb;
+    color:#17406f;
+    padding:1rem 1.1rem;
+    border-radius:16px;
+    margin:0.8rem 0 1.1rem 0;
+}
+.sim-card{
+    background:#ffffff;
+    border:1px solid #e2ebf6;
+    border-radius:18px;
+    padding:1rem;
+    min-height:180px;
+    box-shadow:0 8px 22px rgba(16,46,92,0.05);
+    margin-bottom:1rem;
+}
+.sim-card-tag{
+    display:inline-block;
+    background:#edf4ff;
+    color:#245ea8;
+    border-radius:999px;
+    padding:0.24rem 0.62rem;
+    font-size:0.78rem;
+    font-weight:700;
+    margin-bottom:0.7rem;
+}
+.sim-card-title{
+    color:#173d75;
+    font-size:1.08rem;
+    font-weight:800;
+    margin-bottom:0.45rem;
+    line-height:1.35;
+}
+.sim-card-text{
+    color:#556274;
+    font-size:0.95rem;
+    line-height:1.7;
+}
+.sim-flow-box{
+    background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+    border: 1px solid #dfe9f6;
+    border-radius: 18px;
+    padding: 1rem;
+    box-shadow: 0 8px 22px rgba(16,46,92,0.05);
+    margin-bottom: 1rem;
+}
+.sim-flow-title{
+    color:#173d75;
+    font-size:1.05rem;
+    font-weight:800;
+    margin-bottom:0.6rem;
+}
+.sim-flow-text{
+    color:#5b6779;
+    font-size:0.94rem;
+    line-height:1.75;
+}
+</style>
+""", unsafe_allow_html=True)
+
+
+
+
+
+
+
+
+
+
+
+
+st.markdown("""
+<style>
+/* Make Streamlit metric values smaller */
+[data-testid="stMetricValue"] {
+    font-size: 1.15rem !important;
+    line-height: 1.2 !important;
+    font-weight: 700 !important;
+}
+
+/* Make metric labels a bit smaller too */
+[data-testid="stMetricLabel"] {
+    font-size: 0.88rem !important;
+    color: #5b6779 !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
+
+
+
+st.markdown("""
+<style>
+.sim-step-card{
+    background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+    border: 1px solid #dfe9f6;
+    border-radius: 18px;
+    padding: 1rem;
+    box-shadow: 0 8px 22px rgba(16,46,92,0.05);
+    margin-bottom: 1rem;
+}
+.sim-step-title{
+    color:#173d75;
+    font-size:1.02rem;
+    font-weight:800;
+    margin-bottom:0.45rem;
+}
+.sim-step-text{
+    color:#5b6779;
+    font-size:0.94rem;
+    line-height:1.7;
+}
+.sim-result-box{
+    background: linear-gradient(135deg, #eef6ff 0%, #dfeeff 100%);
+    border-left: 6px solid #2a6bbb;
+    color:#17406f;
+    padding:1rem 1.1rem;
+    border-radius:16px;
+    margin:0.8rem 0 1rem 0;
+}
+</style>
+""", unsafe_allow_html=True)
+
+
+
+
+
+
+
+
+
+
+
+
 
 # -------------------------------------------------------
 # FILES
@@ -238,17 +694,16 @@ st.info(
 
 
 
-
-
-
-
 # -------------------------------------------------------
 # HOME
 # -------------------------------------------------------
-
 if module == "Home":
+
+    st.markdown('<div class="top-strip"></div>', unsafe_allow_html=True)
+
     st.markdown("""
-    <div class="hero-box">
+    <div class="hero-wrap">
+        <div class="hero-kicker">ECS Knowledge Hub</div>
         <div class="hero-title">ECS Stakeholder Learning and Engagement Platform</div>
         <div class="hero-subtitle">
             A stakeholder-facing digital platform prototype designed to support awareness, consultation,
@@ -260,143 +715,258 @@ if module == "Home":
     """, unsafe_allow_html=True)
 
     st.markdown("""
-    <div class="highlight-box">
+    <div class="notice-box">
         <b>Illustrative prototype only.</b> This platform is intended for engagement, awareness,
         consultation, and learning purposes. It does not serve as a regulatory compliance system,
         enforcement mechanism, or allowance registry.
     </div>
     """, unsafe_allow_html=True)
 
-    m1, m2, m3, m4 = st.columns(4)
-    with m1:
-        st.markdown('<div class="metric-shell">', unsafe_allow_html=True)
-        st.metric("Core Sections", "4")
-        st.markdown('</div>', unsafe_allow_html=True)
-    with m2:
-        st.markdown('<div class="metric-shell">', unsafe_allow_html=True)
-        st.metric("Primary Focus", "Stakeholder Learning")
-        st.markdown('</div>', unsafe_allow_html=True)
-    with m3:
-        st.markdown('<div class="metric-shell">', unsafe_allow_html=True)
-        st.metric("Engagement Scope", "Consultation + Capacity Building")
-        st.markdown('</div>', unsafe_allow_html=True)
-    with m4:
-        st.markdown('<div class="metric-shell">', unsafe_allow_html=True)
-        st.metric("Simulation Type", "Illustrative Learning Lab")
-        st.markdown('</div>', unsafe_allow_html=True)
 
-    st.markdown("## Platform Modules")
 
-    col1, col2 = st.columns(2)
 
-    with col1:
+if module == "Home":
+
+    st.markdown('<div class="top-strip"></div>', unsafe_allow_html=True)
+
+    c1, c2, c3, c4 = st.columns(4)
+
+    with c1:
         st.markdown("""
-        <div class="section-card">
-            <div class="mini-tag">Module 1</div>
-            <h3>Information & Awareness</h3>
-            <p>
-                Provides clear and accessible ECS information to help stakeholders understand the system,
-                its purpose, its terminology, and its overall development journey. This module may include
-                ECS overview materials, system logic, key concepts, FAQs, roadmap content, and supporting
-                policy and guidance documents.
-            </p>
-            <p>
-                <b>Purpose:</b> Build foundational understanding and improve stakeholder awareness of the ECS.
-            </p>
+        <div class="portal-card">
+        <div class="card-tag">Structure</div>
+        <div class="card-title">4 Core Sections</div>
+        <div class="card-text">Information, engagement, learning, and simulation modules.</div>
         </div>
         """, unsafe_allow_html=True)
 
+    with c2:
         st.markdown("""
-        <div class="section-card">
-            <div class="mini-tag">Module 2</div>
-            <h3>Stakeholder Engagement</h3>
-            <p>
-                Supports structured dialogue between the platform and stakeholders through consultation papers,
-                feedback channels, engagement activities, workshops, sector discussions, meeting summaries,
-                and announcements. This module is designed to make stakeholder interaction visible,
-                organized, and continuous.
-            </p>
-            <p>
-                <b>Purpose:</b> Facilitate consultation, participation, and two-way communication.
-            </p>
+        <div class="portal-card">
+        <div class="card-tag">Focus</div>
+        <div class="card-title">Stakeholder Awareness</div>
+        <div class="card-text">Providing accessible explanations of ECS policy and system design.</div>
         </div>
         """, unsafe_allow_html=True)
 
-    with col2:
+    with c3:
         st.markdown("""
-        <div class="section-card">
-            <div class="mini-tag">Module 3</div>
-            <h3>Capacity Building & Learning</h3>
-            <p>
-                Provides practical learning resources to strengthen stakeholder understanding of ECS-related
-                concepts and readiness needs. This module may include learning modules, recorded workshops,
-                MRV guidance, case studies, interactive explainers, and curated training resources tailored
-                to different stakeholder groups.
-            </p>
-            <p>
-                <b>Purpose:</b> Strengthen knowledge, readiness, and practical understanding.
-            </p>
+        <div class="portal-card">
+        <div class="card-tag">Engagement</div>
+        <div class="card-title">Consultation Channels</div>
+        <div class="card-text">Supporting dialogue, workshops, and structured stakeholder feedback.</div>
         </div>
         """, unsafe_allow_html=True)
 
+    with c4:
         st.markdown("""
-        <div class="section-card">
-            <div class="mini-tag">Module 4</div>
-            <h3>ECS Learning Simulation Lab</h3>
-            <p>
-                An integrated simulation environment designed to help stakeholders understand how ECS logic
-                may work in practice through guided learning exercises. The lab brings together firm compliance
-                strategy, allowance trading market dynamics, carbon price pathways, sector decarbonization
-                pathways, market balance, illustrative trading interaction, and design choices in one
-                structured simulation experience.
-            </p>
-            <p>
-                <b>Purpose:</b> Support learning through interactive simulation rather than static calculation.
-            </p>
+        <div class="portal-card">
+        <div class="card-tag">Learning</div>
+        <div class="card-title">Simulation Lab</div>
+        <div class="card-text">Interactive exercises to explore ETS market dynamics and compliance.</div>
         </div>
         """, unsafe_allow_html=True)
 
-    st.markdown("## Why this platform matters")
+
+
+
+
+
+
+
+
+
+
+
+    st.markdown('<div class="section-heading">Platform Overview</div>', unsafe_allow_html=True)
     st.markdown("""
-    <div class="insight-box">
-        This platform is designed to help stakeholders move from basic awareness to deeper understanding.
-        Rather than functioning as a compliance tool, it serves as a structured environment for learning,
-        engagement, and dialogue. The combination of information, consultation, capacity building,
-        and simulation makes the platform suitable for stakeholder-facing demonstrations and training.
+    <div class="section-subtext">
+        This homepage is designed as a portal landing page. It provides
+        a brief introduction to the platform, highlights recent updates, surfaces featured knowledge resources,
+        and gives stakeholders quick access to the core ECS learning areas.
     </div>
     """, unsafe_allow_html=True)
 
-    st.markdown("## Illustrative Stakeholder Journey")
+    # ---------------------------------------------------
+    # FEATURED UPDATES
+    # ---------------------------------------------------
+    st.markdown('<div class="section-heading">Featured Updates</div>', unsafe_allow_html=True)
+    news_col1, news_col2, news_col3 = st.columns(3)
 
-    journey_df = pd.DataFrame(
+    with news_col1:
+        st.markdown("""
+        <div class="news-card">
+            <img class="news-image" src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=1200&q=80">
+            <div class="news-body">
+                <div class="news-type">News</div>
+                <div class="news-title">Illustrative ECS stakeholder workshop series launched</div>
+                <div class="news-text">
+                    A series of introductory stakeholder sessions may support awareness-building,
+                    consultation, and early dialogue on ECS design and implementation considerations.
+                </div>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    with news_col2:
+        st.markdown("""
+        <div class="news-card">
+            <img class="news-image" src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop&w=1200&q=80">
+            <div class="news-body">
+                 <div class="news-type">Publication</div>
+                 <div class="news-title">New introductory note on ECS concepts and stakeholder roles</div>
+                 <div class="news-text">
+                A concise knowledge note may help stakeholders understand system purpose,
+                key terminology, and how different institutions may interact with the ECS.
+            </div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+    
+
+
+    with news_col3:
+        st.markdown("""
+        <div class="news-card">
+            <img class="news-image" src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop&w=1200&q=80">
+            <div class="news-body">
+                <div class="news-type">Learning Lab</div>
+                <div class="news-title">Interactive simulation exercises support practical understanding</div>
+                <div class="news-text">
+                    The ECS Learning Simulation Lab enables stakeholders to explore market behavior,
+                    sector pathways, and design choices through guided exercises.
+                </div>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    # ---------------------------------------------------
+    # QUICK ACCESS + RESOURCES
+    # ---------------------------------------------------
+    left_col, right_col = st.columns([1.05, 1.35])
+
+    with left_col:
+        st.markdown('<div class="section-heading">Quick Access</div>', unsafe_allow_html=True)
+
+        st.markdown("""
+        <div class="quick-link-card">
+            <h4>Information & Awareness</h4>
+            <p>
+                Access ECS overview materials, system logic, terminology, roadmap content,
+                FAQs, and supporting policy guidance.
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
+
+        st.markdown("""
+        <div class="quick-link-card">
+            <h4>Stakeholder Engagement</h4>
+            <p>
+                Explore consultation papers, feedback channels, workshop activities,
+                engagement updates, and meeting-related content.
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
+
+        st.markdown("""
+        <div class="quick-link-card">
+            <h4>Capacity Building & Learning</h4>
+            <p>
+                Review learning modules, recorded workshops, MRV guidance,
+                case studies, and practical stakeholder resources.
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
+
+        st.markdown("""
+        <div class="quick-link-card">
+            <h4>ECS Learning Simulation Lab</h4>
+            <p>
+                Interact with guided exercises on firm strategy, trading dynamics,
+                price pathways, market balance, and design choices.
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
+
+    with right_col:
+        st.markdown('<div class="section-heading">Featured Knowledge Resources</div>', unsafe_allow_html=True)
+
+        r1, r2 = st.columns(2)
+
+        with r1:
+            st.markdown("""
+            <div class="resource-card">
+                <div class="resource-meta">Overview Note</div>
+                <div class="resource-title">What is the ECS?</div>
+                <div class="resource-text">
+                    A brief introductory note explaining the purpose of the ECS, why it matters,
+                    and how stakeholders may engage with it.
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+
+            st.markdown("""
+            <div class="resource-card">
+                <div class="resource-meta">Guidance</div>
+                <div class="resource-title">Introduction to MRV</div>
+                <div class="resource-text">
+                    A practical explainer on monitoring, reporting, and verification concepts
+                    to support stakeholder readiness and understanding.
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+
+        with r2:
+            st.markdown("""
+            <div class="resource-card">
+                <div class="resource-meta">Consultation</div>
+                <div class="resource-title">Stakeholder Engagement Note</div>
+                <div class="resource-text">
+                    An overview of how consultation, workshops, and structured dialogue
+                    can support ECS development and implementation.
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+
+            st.markdown("""
+            <div class="resource-card">
+                <div class="resource-meta">Simulation Lab</div>
+                <div class="resource-title">Interactive Learning Exercises</div>
+                <div class="resource-text">
+                    A set of guided simulation exercises showing how market logic,
+                    firm behavior, and policy design choices may interact.
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+
+    # ---------------------------------------------------
+    # OPTIONAL EVENTS / ANNOUNCEMENTS
+    # ---------------------------------------------------
+    st.markdown('<div class="section-heading">Upcoming Activities</div>', unsafe_allow_html=True)
+
+    activities_df = pd.DataFrame(
         {
-            "Stage": [
-                "1. Build awareness",
-                "2. Understand ECS concepts",
-                "3. Participate in engagement activities",
-                "4. Strengthen learning and readiness",
-                "5. Explore ECS through simulation",
+            "Activity": [
+                "Illustrative stakeholder roundtable",
+                "Introductory ECS webinar",
+                "MRV awareness session",
+                "Simulation lab demonstration",
             ],
-            "Illustrative Journey": [
-                "Stakeholders begin by reviewing introductory ECS information and key messages.",
-                "Users explore terminology, FAQs, guidance materials, and the broader ECS structure.",
-                "Stakeholders engage through consultation materials, workshops, and feedback channels.",
-                "Users access learning modules, MRV guidance, training resources, and practical explainers.",
-                "Stakeholders interact with the ECS Learning Simulation Lab to understand market logic, firm behavior, sector pathways, and design choices.",
+            "Purpose": [
+                "Support structured dialogue on ECS design and stakeholder perspectives.",
+                "Provide an accessible introduction to ECS concepts and terminology.",
+                "Build awareness of reporting and verification basics.",
+                "Demonstrate how simulation-based learning can support stakeholder understanding.",
+            ],
+            "Illustrative Timing": [
+                "Q2 2026",
+                "Q2 2026",
+                "Q3 2026",
+                "Q3 2026",
             ],
         }
     )
-
-    st.dataframe(journey_df, use_container_width=True)
-
-    st.markdown("## Platform Positioning")
-    st.write(
-        "This prototype is positioned as a stakeholder-facing platform for ECS learning and engagement. "
-        "It is designed to communicate complex policy concepts in a more accessible way, while also "
-        "supporting consultation and simulation-based understanding."
-    )
-
-
+    st.dataframe(activities_df, use_container_width=True, hide_index=True)
 
 
 
@@ -411,49 +981,106 @@ if module == "Home":
 # -------------------------------------------------------
 # INFORMATION & AWARENESS
 # -------------------------------------------------------
-
-
-
-
-
-
 elif module == "Information & Awareness":
-    st.title("Information & Awareness")
+    st.markdown("""
+    <div class="page-hero">
+        <div class="page-kicker">Information & Awareness</div>
+        <div class="page-title">Understand the ECS and access core stakeholder resources</div>
+        <div class="page-subtitle">
+            This section is designed to support stakeholder awareness, foundational understanding,
+            and access to introductory ECS materials, updates, and learning resources.
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
 
-    st.write(
-        "This section explains the ECS in a simple and accessible way. It is designed to support awareness, "
-        "foundational understanding, and transparent communication with stakeholders."
+    st.markdown("""
+    <div class="page-note">
+        <b>Illustrative prototype only.</b> This section is designed for awareness, learning, and engagement.
+        It does not function as an MRV submission portal, registry, or operational compliance system.
+    </div>
+    """, unsafe_allow_html=True)
+
+    top1, top2, top3 = st.columns([1.4, 1.4, 1.2])
+
+    with top1:
+        st.markdown("""
+        <div class="info-feature-card">
+            <div class="info-feature-tag">About ECS</div>
+            <div class="info-feature-title">What stakeholders should understand first</div>
+            <div class="info-feature-text">
+                ECS is presented here as an illustrative policy framework that can support emissions transparency,
+                stakeholder readiness, and structured policy development.
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    with top2:
+        st.markdown("""
+        <div class="info-feature-card">
+            <div class="info-feature-tag">Knowledge Hub</div>
+            <div class="info-feature-title">Guidance, FAQs, and introductory materials</div>
+            <div class="info-feature-text">
+                Stakeholders can access simple explanations, key concepts, introductory notes,
+                workshop materials, and featured publications in one place.
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    with top3:
+        st.markdown("""
+        <div class="info-feature-card">
+            <div class="info-feature-tag">Related Systems</div>
+            <div class="info-feature-title">Learn where MRV and registry tools fit</div>
+            <div class="info-feature-text">
+                This page explains related operational systems at a high level and shows
+                illustrative external links, without turning the platform into those systems.
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    tab1, tab2, tab3, tab4, tab5 = st.tabs(
+        [
+            "About ECS",
+            "How It Works",
+            "Key Concepts",
+            "Resources & FAQs",
+            "Related Systems",
+        ]
     )
 
-    info_tab1, info_tab2, info_tab3, info_tab4 = st.tabs(
-        ["What is ECS?", "How It Works", "Key Concepts", "FAQs & Documents"]
-    )
-
-    with info_tab1:
-        st.subheader("What is the ECS?")
+    with tab1:
+        st.markdown("### What is the ECS?")
         st.write(
-            "The Emissions Compliance System (ECS) is an illustrative policy framework that can support "
-            "emissions transparency, encourage lower-carbon action, and help stakeholders understand how "
-            "emissions-related obligations may be structured."
+            "The Emissions Compliance System (ECS) is presented in this prototype as an illustrative policy framework "
+            "that can support emissions transparency, structured stakeholder participation, and clearer understanding "
+            "of how emissions-related obligations may be organized."
         )
 
-        st.markdown("**Why ECS may be introduced**")
-        st.write("- To improve emissions transparency")
-        st.write("- To support more informed climate and industrial policy")
-        st.write("- To create clearer incentives for emissions reduction")
-        st.write("- To strengthen long-term planning and system readiness")
+        c1, c2 = st.columns(2)
+        with c1:
+            st.markdown("**Why ECS may be introduced**")
+            st.write("- Improve emissions transparency")
+            st.write("- Support more informed climate and industrial policy")
+            st.write("- Create clearer incentives for emissions reduction")
+            st.write("- Strengthen long-term planning and system readiness")
 
-        st.markdown("**Illustrative stakeholder groups**")
-        st.write("- Industry participants")
-        st.write("- Government and policy institutions")
-        st.write("- Technical experts and verifiers")
-        st.write("- Researchers and wider stakeholders")
+        with c2:
+            st.markdown("**Illustrative stakeholder groups**")
+            st.write("- Industry participants")
+            st.write("- Government and policy institutions")
+            st.write("- Technical experts and verifiers")
+            st.write("- Researchers and wider stakeholders")
 
-    with info_tab2:
-        st.subheader("How the ECS Works")
+        st.markdown("### Why this page matters")
+        st.info(
+            "This page is intended to serve as a stakeholder-facing information portal, helping users understand "
+            "the ECS before they engage with consultations, learning modules, or simulation exercises."
+        )
+
+    with tab2:
+        st.markdown("### How the ECS Works")
         st.write(
-            "This section provides a simplified explanation of system logic so stakeholders can understand "
-            "the overall structure without going into regulator-only operational detail."
+            "This simplified view explains ECS logic without going into regulator-only operational detail."
         )
 
         process_df = pd.DataFrame(
@@ -461,40 +1088,94 @@ elif module == "Information & Awareness":
                 "Step": [
                     "System design",
                     "Stakeholder consultation",
-                    "Monitoring and reporting",
-                    "Review of emissions information",
-                    "Illustrative policy implementation",
+                    "Monitoring and reporting concepts",
+                    "Review and reconciliation",
+                    "Implementation and refinement",
                 ],
                 "Description": [
-                    "Authorities define the overall policy structure and system objectives.",
-                    "Stakeholders provide feedback through workshops, consultations, and meetings.",
-                    "Participants track and report emissions information using agreed approaches.",
-                    "Reported information is reviewed to support transparency and system functioning.",
-                    "The system evolves through phased development, learning, and refinement.",
+                    "Authorities define the broad policy structure and system objectives.",
+                    "Stakeholders provide feedback through workshops, consultations, and dialogue channels.",
+                    "Participants learn how emissions-related information may be monitored and reported.",
+                    "Reported information is reviewed and linked to the broader compliance cycle.",
+                    "The system evolves through phased implementation, engagement, and improvement.",
                 ],
             }
         )
-        st.dataframe(process_df, use_container_width=True)
+        st.dataframe(process_df, use_container_width=True, hide_index=True)
 
-    with info_tab3:
-        st.subheader("Key Concepts and Terminology")
+    with tab3:
+        st.markdown("### Key Concepts and Terminology")
 
         concepts = {
-            "Emissions Compliance System (ECS)": "A system designed to structure emissions-related obligations and support policy objectives.",
-            "MRV": "Monitoring, Reporting, and Verification of emissions-related data.",
-            "Allowance": "An illustrative unit representing permission associated with emissions within a policy framework.",
-            "Carbon Price": "A value associated with emissions that can influence decisions and incentives.",
-            "Cap": "A policy parameter that limits the amount of emissions or covered activity in the system.",
-            "Stakeholder Engagement": "Structured dialogue with affected and interested parties during design and implementation.",
+            "Emissions Compliance System (ECS)": "An illustrative system used here to explain how emissions-related obligations and stakeholder roles may be structured.",
+            "Cap": "A policy parameter that limits covered emissions or activity.",
+            "Allowance": "An illustrative unit associated with emissions within the policy framework.",
+            "Carbon Price": "A value associated with emissions that can shape incentives and decisions.",
+            "Allocation": "How allowances may be distributed or made available under the system.",
+            "MRV": "Monitoring, Reporting, and Verification of emissions-related information.",
+            "Stakeholder Engagement": "Structured dialogue with affected and interested parties during policy development and implementation.",
+            "Trading": "The exchange of allowances in systems that permit market transactions.",
         }
 
         for term, definition in concepts.items():
             with st.expander(term):
                 st.write(definition)
 
-    with info_tab4:
-        st.subheader("FAQs & Documents")
+    with tab4:
+        st.markdown("### Featured Resources")
+        r1, r2 = st.columns(2)
 
+        with r1:
+            st.markdown("""
+            <div class="resource-card">
+                <div class="resource-meta">Overview</div>
+                <div class="resource-title">ECS Overview Note</div>
+                <div class="resource-text">A short note introducing ECS objectives, structure, and stakeholder relevance.</div>
+            </div>
+            """, unsafe_allow_html=True)
+
+            st.markdown("""
+            <div class="resource-card">
+                <div class="resource-meta">Roadmap</div>
+                <div class="resource-title">Introductory ECS Roadmap</div>
+                <div class="resource-text">A simple overview of the design, pilot, and operational readiness journey.</div>
+            </div>
+            """, unsafe_allow_html=True)
+
+            st.markdown("""
+            <div class="resource-card">
+                <div class="resource-meta">FAQ</div>
+                <div class="resource-title">Illustrative ECS FAQ</div>
+                <div class="resource-text">Answers to common stakeholder questions about purpose, structure, and learning pathways.</div>
+            </div>
+            """, unsafe_allow_html=True)
+
+        with r2:
+            st.markdown("""
+            <div class="resource-card">
+                <div class="resource-meta">Consultation</div>
+                <div class="resource-title">Stakeholder Consultation Note</div>
+                <div class="resource-text">An overview of how stakeholder participation and consultation can support ECS design.</div>
+            </div>
+            """, unsafe_allow_html=True)
+
+            st.markdown("""
+            <div class="resource-card">
+                <div class="resource-meta">Guidance</div>
+                <div class="resource-title">MRV Introductory Guide</div>
+                <div class="resource-text">A simple explainer on MRV concepts for awareness and readiness purposes.</div>
+            </div>
+            """, unsafe_allow_html=True)
+
+            st.markdown("""
+            <div class="resource-card">
+                <div class="resource-meta">Workshops</div>
+                <div class="resource-title">Workshop Summary Pack</div>
+                <div class="resource-text">Illustrative workshop materials, presentation summaries, and learning takeaways.</div>
+            </div>
+            """, unsafe_allow_html=True)
+
+        st.markdown("### FAQs")
         faq_items = {
             "What is the purpose of this platform?":
                 "This platform is for stakeholder engagement, awareness, consultation, and learning.",
@@ -510,315 +1191,802 @@ elif module == "Information & Awareness":
             with st.expander(q):
                 st.write(a)
 
-        docs_df = pd.DataFrame(
-            {
-                "Document": [
-                    "ECS Overview Note",
-                    "Introductory ECS Roadmap",
-                    "Stakeholder Consultation Note",
-                    "MRV Introductory Guide",
-                    "Workshop Summary Pack",
-                    "Illustrative ECS FAQ",
-                ],
-                "Category": [
-                    "Overview",
-                    "Roadmap",
-                    "Consultation",
-                    "Guidance",
-                    "Workshops",
-                    "FAQ",
-                ],
-                "Status": [
-                    "Published",
-                    "Published",
-                    "Draft",
-                    "Published",
-                    "Draft",
-                    "Published",
-                ],
-            }
+    with tab5:
+        st.markdown("### Related Operational Systems")
+        st.write(
+            "The ECS stakeholder platform is not itself an MRV portal or registry. However, stakeholders may still need "
+            "to understand what those systems do and how they relate to the broader ECS ecosystem."
         )
-        st.dataframe(docs_df, use_container_width=True)
+
+        sys1, sys2 = st.columns(2)
+
+        with sys1:
+            st.markdown("""
+            <div class="resource-card">
+                <div class="resource-meta">Illustrative External Link</div>
+                <div class="resource-title">MRV Portal</div>
+                <div class="resource-text">
+                    A separate operational system where monitoring, reporting, and verification activities may be managed.
+                    This card is for awareness and orientation only.
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+            st.code("https://ecs/mrv-portal", language=None)
+
+        with sys2:
+            st.markdown("""
+            <div class="resource-card">
+                <div class="resource-meta">Illustrative External Link</div>
+                <div class="resource-title">Allowance Registry Platform</div>
+                <div class="resource-text">
+                    A separate operational platform where allowance accounts, transfers, and related actions may be administered.
+                    This card is for awareness and orientation only.
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+            st.code("https://ecs/registry-platform", language=None)
+
+        st.info(
+            "These URLs are mock examples included only to help stakeholders understand where operational systems may sit "
+            "alongside a stakeholder-facing information and engagement platform."
+        )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # -------------------------------------------------------
 # STAKEHOLDER ENGAGEMENT
 # -------------------------------------------------------
 elif module == "Stakeholder Engagement":
-    st.title("Stakeholder Engagement")
 
-    st.write(
-        "This section supports structured dialogue, consultation, and feedback collection. "
-        "It is designed to facilitate stakeholder participation and visibility on engagement activities."
-    )
+    st.markdown("""
+    <div class="page-hero">
+        <div class="page-kicker">Stakeholder Engagement</div>
+        <div class="page-title">Participate in ECS consultation and dialogue</div>
+        <div class="page-subtitle">
+            This section is designed to support structured stakeholder engagement throughout ECS development.
+            It explains how stakeholders can participate, submit feedback, and stay informed about engagement
+            activities across the design, pilot, and operational readiness phases.
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
 
-    st.info(
-        "This section is for engagement and consultation purposes only. It is not a compliance reporting or enforcement tool."
-    )
+    st.markdown("""
+    <div class="page-note">
+        <b>Illustrative prototype only.</b> This section is intended to demonstrate consultation,
+        dialogue, and feedback processes. It is not a compliance reporting or enforcement tool.
+    </div>
+    """, unsafe_allow_html=True)
 
-    engagement_tab1, engagement_tab2, engagement_tab3, engagement_tab4 = st.tabs(
+    top1, top2, top3 = st.columns(3)
+
+    with top1:
+        st.markdown("""
+        <div class="info-feature-card">
+            <div class="info-feature-tag">Overview</div>
+            <div class="info-feature-title">Why stakeholder engagement matters</div>
+            <div class="info-feature-text">
+                Stakeholder engagement helps improve transparency, collect practical input,
+                and support more informed ECS design and implementation.
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    with top2:
+        st.markdown("""
+        <div class="info-feature-card">
+            <div class="info-feature-tag">Participation</div>
+            <div class="info-feature-title">How stakeholders can participate</div>
+            <div class="info-feature-text">
+                Stakeholders may participate through consultation papers, workshops, meetings,
+                and structured feedback submissions.
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    with top3:
+        st.markdown("""
+        <div class="info-feature-card">
+            <div class="info-feature-tag">Feedback</div>
+            <div class="info-feature-title">How feedback is collected</div>
+            <div class="info-feature-text">
+                Feedback may be submitted through a structured online form and reviewed
+                by engagement phase, stakeholder type, and topic.
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    engagement_tab1, engagement_tab2, engagement_tab3, engagement_tab4, engagement_tab5 = st.tabs(
         [
-            "Consultation Papers",
+            "Engagement Overview",
+            "How to Participate",
             "Submit Feedback",
-            "Workshops & Meetings",
-            "Engagement Calendar",
+            "Schedule & Channels",
+            "Timeline by Phase",
         ]
     )
 
+    # ---------------------------------------------------
+    # TAB 1: ENGAGEMENT OVERVIEW
+    # ---------------------------------------------------
     with engagement_tab1:
-        st.subheader("Consultation Papers")
-        papers_df = pd.DataFrame(
-            {
-                "Paper": [
-                    "Consultation Paper 01 - ECS Objectives",
-                    "Consultation Paper 02 - Stakeholder Roles",
-                    "Consultation Paper 03 - MRV Readiness",
-                    "Consultation Paper 04 - Illustrative Market Design",
-                ],
-                "Phase": [
-                    "Design Phase",
-                    "Design Phase",
-                    "Pilot Phase",
-                    "Pilot Phase",
-                ],
-                "Status": [
-                    "Published",
-                    "Draft",
-                    "Draft",
-                    "Draft",
-                ],
-            }
+        st.markdown("### Engagement Overview")
+        st.write(
+            "The ECS stakeholder engagement approach is intended to create structured dialogue between "
+            "government institutions, industry stakeholders, technical experts, and other relevant groups. "
+            "It supports transparency, improves understanding of stakeholder needs, and helps strengthen "
+            "policy design through consultation and feedback."
         )
-        st.dataframe(papers_df, use_container_width=True)
 
+        col1, col2 = st.columns(2)
+
+        with col1:
+            st.markdown("**Primary objectives of engagement**")
+            st.write("- Improve transparency during ECS development")
+            st.write("- Collect stakeholder views on key design issues")
+            st.write("- Support dialogue across affected sectors")
+            st.write("- Identify implementation questions early")
+            st.write("- Build trust and participation over time")
+
+        with col2:
+            st.markdown("**Illustrative stakeholder groups**")
+            st.write("- Entities under the compliance system")
+            st.write("- Government and public institutions")
+            st.write("- Technical experts and advisors")
+            st.write("- Industry associations")
+            st.write("- Researchers and wider stakeholders")
+
+        st.info(
+            "This page focuses on engagement and consultation only. Training materials and simulation exercises "
+            "should sit in the Capacity Building and Simulation sections, not here."
+        )
+
+    # ---------------------------------------------------
+    # TAB 2: HOW TO PARTICIPATE
+    # ---------------------------------------------------
     with engagement_tab2:
-        st.subheader("Submit Feedback")
+        st.markdown("### How Stakeholders Can Participate")
+        st.write(
+            "Stakeholders may participate in the ECS engagement process through several consultation and dialogue channels."
+        )
 
-        with st.form("feedback_form"):
-            name = st.text_input("Stakeholder Name")
-            organization = st.text_input("Organization")
+        p1, p2 = st.columns(2)
 
-            stakeholder_group = st.selectbox(
-                "Stakeholder Group",
-                [
-                    "Industry Stakeholder",
-                    "Government / Public Institution",
-                    "Technical Expert / Verifier",
-                    "Research / Academic",
-                    "Other",
-                ],
-            )
+        with p1:
+            st.markdown("""
+            <div class="engage-card">
+                <div class="engage-title">Consultation Papers</div>
+                <div class="engage-text">
+                    Stakeholders review draft papers, concept notes, and policy materials,
+                    then submit comments and observations through formal consultation channels.
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
 
-            engagement_phase = st.selectbox(
-                "Engagement Phase",
-                ["Design Phase", "Pilot Phase", "Operational Readiness Phase"],
-            )
+            st.markdown("""
+            <div class="engage-card">
+                <div class="engage-title">Stakeholder Workshops</div>
+                <div class="engage-text">
+                    Workshops provide an opportunity to discuss sector-specific questions,
+                    implementation issues, and stakeholder concerns in a more interactive setting.
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
 
-            feedback_type = st.selectbox(
-                "Feedback Type",
-                [
-                    "General Comment",
-                    "Consultation Feedback",
-                    "Workshop Feedback",
-                    "Technical Clarification",
-                    "Learning Suggestion",
-                ],
-            )
+        with p2:
+            st.markdown("""
+            <div class="engage-card">
+                <div class="engage-title">Technical Working Groups</div>
+                <div class="engage-text">
+                    Technical working groups bring together relevant experts and stakeholder representatives
+                    to review design options, methodologies, and operational considerations.
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
 
-            comment = st.text_area("Comment")
-            submitted = st.form_submit_button("Submit Feedback")
+            st.markdown("""
+            <div class="engage-card">
+                <div class="engage-title">Direct Feedback Submission</div>
+                <div class="engage-text">
+                    Stakeholders may use the feedback form below to provide comments, suggestions,
+                    clarification requests, and implementation observations.
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
 
-            if submitted:
-                feedback_row = {
-                    "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                    "stakeholder_name": name,
-                    "organization": organization,
-                    "stakeholder_group": stakeholder_group,
-                    "engagement_phase": engagement_phase,
-                    "feedback_type": feedback_type,
-                    "comment": comment,
-                }
-                save_to_excel(FEEDBACK_FILE, feedback_row)
-                st.success("Feedback submitted successfully.")
+        st.markdown("### What stakeholders may comment on")
+        st.write("- Policy design")
+        st.write("- Market functioning")
+        st.write("- Sector-specific implementation questions")
+        st.write("- Stakeholder readiness")
+        st.write("- General comments and suggestions")
+
+    # ---------------------------------------------------
+    # TAB 3: SUBMIT FEEDBACK
+    # ---------------------------------------------------
+    with engagement_tab3:
+        st.markdown("### Submit Feedback")
+        st.write(
+            "Stakeholders may submit structured feedback on ECS design, stakeholder engagement activities, "
+            "sector-specific concerns, and implementation-related questions."
+        )
+
+        form_col1, form_col2 = st.columns([2, 1])
+
+        with form_col1:
+            with st.form("feedback_form"):
+                name = st.text_input("Stakeholder Name")
+                organization = st.text_input("Organization")
+
+                stakeholder_group = st.selectbox(
+                    "Stakeholder Group",
+                    [
+                        "Entities under the compliance system",
+                        "Government / Public Institution",
+                        "Technical Expert / Advisor",
+                        "Industry Association",
+                        "Research / Academic",
+                        "Other",
+                    ],
+                )
+
+                sector = st.selectbox(
+                    "Sector / Area",
+                    [
+                        "Power and Utilities",
+                        "Cement and Construction Materials",
+                        "Petrochemical Value Chains",
+                        "Steel and Manufacturing",
+                        "Government / Public Institutions",
+                        "Other",
+                    ],
+                )
+
+                feedback_type = st.selectbox(
+                    "Feedback Type",
+                    [
+                        "Policy Design",
+                        "Market Functioning",
+                        "Sector Readiness",
+                        "Technical Clarification",
+                        "General Comment",
+                    ],
+                )
+
+                engagement_phase = st.selectbox(
+                    "Engagement Phase",
+                    ["Design Phase", "Pilot Phase", "Operational Readiness Phase"],
+                )
+
+                comment = st.text_area("Comment / Feedback")
+
+                submitted = st.form_submit_button("Submit Feedback")
+
+                if submitted:
+                    feedback_row = {
+                        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                        "stakeholder_name": name,
+                        "organization": organization,
+                        "stakeholder_group": stakeholder_group,
+                        "sector": sector,
+                        "feedback_type": feedback_type,
+                        "engagement_phase": engagement_phase,
+                        "comment": comment,
+                    }
+
+                    save_to_excel(FEEDBACK_FILE, feedback_row)
+                    st.success("Feedback submitted successfully.")
+
+        with form_col2:
+            st.markdown("**How feedback is handled**")
+            st.write("- Submitted through a structured online form")
+            st.write("- Tagged by stakeholder type and engagement phase")
+            st.write("- Used to support transparent review and follow-up")
+            st.write("- Can help identify key themes and stakeholder concerns")
+
+            st.markdown("**Illustrative focus areas**")
+            st.write("- Policy design")
+            st.write("- Market functioning")
+            st.write("- Sector readiness")
+            st.write("- Technical clarification")
+            st.write("- General comments")
 
         feedback_df = load_excel(FEEDBACK_FILE)
         if not feedback_df.empty:
             st.markdown("---")
-            st.subheader("Submitted Feedback")
-            st.dataframe(feedback_df, use_container_width=True)
+            st.markdown("### Submitted Feedback Records")
+            st.dataframe(feedback_df, use_container_width=True, hide_index=True)
 
-    with engagement_tab3:
-        st.subheader("Workshops & Meetings")
+    # ---------------------------------------------------
+    # TAB 4: SCHEDULE & CHANNELS
+    # ---------------------------------------------------
+    with engagement_tab4:
+        st.markdown("### Engagement Channels and Schedule")
+        st.write(
+            "The ECS stakeholder engagement process may include regular meetings and consultation activities "
+            "to gather feedback, discuss sector issues, and support transparent communication."
+        )
 
-        workshops_df = pd.DataFrame(
+        channel_tab1, channel_tab2, channel_tab3, channel_tab4 = st.tabs(
+            [
+                "Technical Working Groups",
+                "Sector Workshops",
+                "Public Consultation Sessions",
+                "Steering / Coordination Meetings",
+            ]
+        )
+
+        with channel_tab1:
+            st.markdown("#### Technical Working Groups")
+            st.write("**Illustrative Frequency:** Monthly")
+            st.write("**Participants:** Technical experts, stakeholder representatives, relevant institutions")
+            st.markdown("**Purpose**")
+            st.write("- Discuss technical aspects of ECS design")
+            st.write("- Review methodologies and assumptions")
+            st.write("- Address implementation questions")
+
+        with channel_tab2:
+            st.markdown("#### Sector Workshops")
+            st.write("**Illustrative Frequency:** Quarterly")
+            st.markdown("**Purpose**")
+            st.write("- Present policy updates")
+            st.write("- Discuss sector-specific implications")
+            st.write("- Collect stakeholder input and concerns")
+
+            st.markdown("**Illustrative sectors**")
+            st.write("- Power and Utilities")
+            st.write("- Cement and Construction Materials")
+            st.write("- Petrochemical Value Chains")
+            st.write("- Steel and Manufacturing")
+
+        with channel_tab3:
+            st.markdown("#### Public Consultation Sessions")
+            st.write("**Illustrative Frequency:** At key policy milestones")
+            st.markdown("**Purpose**")
+            st.write("- Present draft policy documents")
+            st.write("- Gather formal stakeholder comments")
+            st.write("- Strengthen transparency and visibility")
+
+        with channel_tab4:
+            st.markdown("#### Steering / Coordination Meetings")
+            st.write("**Illustrative Frequency:** As required")
+            st.write("**Participants:** Senior officials, policy leads, coordination bodies")
+            st.markdown("**Purpose**")
+            st.write("- Review key decisions")
+            st.write("- Align on strategic direction")
+            st.write("- Support coordination across institutions")
+
+        st.markdown("---")
+        st.markdown("### Engagement Structure Summary")
+
+        engagement_df = pd.DataFrame(
             {
-                "Activity": [
-                    "Technical Working Group",
-                    "Sector Workshop",
-                    "Public Consultation Session",
-                    "Stakeholder Dialogue Meeting",
-                ],
-                "Purpose": [
-                    "Discuss technical design elements and clarify concepts",
-                    "Gather sector-specific views and identify concerns",
-                    "Present consultation materials and receive stakeholder input",
-                    "Enable direct dialogue on implementation and learning needs",
+                "Engagement Channel": [
+                    "Technical Working Groups",
+                    "Sector Workshops",
+                    "Public Consultation Sessions",
+                    "Steering / Coordination Meetings",
                 ],
                 "Illustrative Frequency": [
                     "Monthly",
                     "Quarterly",
-                    "At policy milestones",
-                    "As needed",
+                    "At key policy milestones",
+                    "As required",
+                ],
+                "Primary Purpose": [
+                    "Technical discussion and design review",
+                    "Sector dialogue and input collection",
+                    "Formal consultation and transparency",
+                    "Strategic review and coordination",
                 ],
             }
         )
-        st.dataframe(workshops_df, use_container_width=True)
 
-    with engagement_tab4:
-        st.subheader("Engagement Calendar")
+        st.dataframe(engagement_df, use_container_width=True, hide_index=True)
 
-        calendar_df = pd.DataFrame(
+    # ---------------------------------------------------
+    # TAB 5: TIMELINE BY PHASE
+    # ---------------------------------------------------
+    with engagement_tab5:
+        st.markdown("### Engagement Timeline by Phase")
+        st.write(
+            "Engagement activities may evolve across different ECS development phases. "
+            "The structure below illustrates how stakeholder interaction may change over time."
+        )
+
+        t1, t2, t3 = st.columns(3)
+
+        with t1:
+            st.markdown("""
+            <div class="phase-card">
+                <div class="phase-title">Design Phase</div>
+                <div class="phase-text">
+                    - Public consultations<br>
+                    - Technical working groups<br>
+                    - Sector stakeholder workshops<br>
+                    - Early dialogue on design options
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+
+        with t2:
+            st.markdown("""
+            <div class="phase-card">
+                <div class="phase-title">Pilot Phase</div>
+                <div class="phase-text">
+                    - Targeted stakeholder meetings<br>
+                    - Pilot-related feedback sessions<br>
+                    - Readiness discussions<br>
+                    - Review of initial implementation issues
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+
+        with t3:
+            st.markdown("""
+            <div class="phase-card">
+                <div class="phase-title">Operational Readiness Phase</div>
+                <div class="phase-text">
+                    - Ongoing stakeholder forums<br>
+                    - Consultation on updates<br>
+                    - Continuous feedback channels<br>
+                    - Communication on next steps
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+
+        st.markdown("---")
+        timeline_df = pd.DataFrame(
             {
                 "Phase": [
                     "Design Phase",
                     "Pilot Phase",
                     "Operational Readiness Phase",
                 ],
-                "Illustrative Activities": [
-                    "Consultation papers, technical meetings, stakeholder mapping, introductory workshops",
-                    "Pilot discussions, MRV readiness sessions, targeted engagement workshops",
-                    "Ongoing forums, update sessions, feedback collection, learning refreshers",
+                "Illustrative Engagement Activities": [
+                    "Public consultations, technical working groups, sector workshops, early dialogue on policy design",
+                    "Targeted stakeholder meetings, pilot feedback sessions, readiness discussions, implementation review",
+                    "Stakeholder forums, consultation on updates, continuous feedback channels, communication on next steps",
                 ],
             }
         )
-        st.dataframe(calendar_df, use_container_width=True)
+
+        st.dataframe(timeline_df, use_container_width=True, hide_index=True)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # -------------------------------------------------------
 # CAPACITY BUILDING & LEARNING
 # -------------------------------------------------------
 elif module == "Capacity Building & Learning":
-    st.title("Capacity Building & Learning")
 
-    st.write(
-        "This section helps stakeholders build understanding of the ECS through structured learning materials, "
-        "guidance content, and practical resources."
-    )
+    st.markdown("""
+    <div class="page-hero">
+        <div class="page-kicker">Capacity Building & Learning</div>
+        <div class="page-title">Build practical readiness for ECS participation</div>
+        <div class="page-subtitle">
+            This section focuses on stakeholder learning and preparation.
+            It provides structured learning pathways, training materials,
+            and practical guidance that help stakeholders understand how
+            ECS mechanisms and market dynamics may operate.
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
 
-    capacity_tab1, capacity_tab2, capacity_tab3, capacity_tab4 = st.tabs(
+    st.markdown("""
+    <div class="page-note">
+        <b>Illustrative prototype only.</b>
+        The materials below are designed for stakeholder learning and readiness.
+        They do not represent operational regulatory instructions.
+    </div>
+    """, unsafe_allow_html=True)
+
+    top1, top2, top3 = st.columns(3)
+
+    with top1:
+        st.markdown("""
+        <div class="info-feature-card">
+        <div class="info-feature-tag">Learning Path</div>
+        <div class="info-feature-title">Structured understanding</div>
+        <div class="info-feature-text">
+        Stakeholders move from basic awareness to practical understanding
+        through guided learning modules and practical explanations.
+        </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    with top2:
+        st.markdown("""
+        <div class="info-feature-card">
+        <div class="info-feature-tag">Training Materials</div>
+        <div class="info-feature-title">Learning resources</div>
+        <div class="info-feature-text">
+        Guidance notes, workshop summaries, and learning materials
+        help stakeholders build familiarity with ECS policy concepts.
+        </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    with top3:
+        st.markdown("""
+        <div class="info-feature-card">
+        <div class="info-feature-tag">Simulation Preparation</div>
+        <div class="info-feature-title">Prepare for exercises</div>
+        <div class="info-feature-text">
+        Stakeholders can review practical explanations and manuals
+        before interacting with ECS simulation exercises.
+        </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    capacity_tab1, capacity_tab2, capacity_tab3, capacity_tab4, capacity_tab5 = st.tabs(
         [
-            "Learning Modules",
+            "Learning Pathway",
             "Training Resources",
-            "MRV Guidance",
-            "Case Studies & Explainers",
+            "Practical Guidance",
+            "Simulation Preparation",
+            "Reference Materials"
         ]
     )
 
-    with capacity_tab1:
-        st.subheader("Learning Modules")
+    # ---------------------------------------------------
+    # LEARNING PATHWAY
+    # ---------------------------------------------------
 
-        modules_df = pd.DataFrame(
-            {
-                "Module": [
-                    "ECS Fundamentals",
-                    "Stakeholder Roles in ECS",
-                    "Introduction to MRV",
-                    "Understanding Carbon Price Signals",
-                    "ECS Design and Policy Choices",
-                ],
-                "Purpose": [
-                    "Build foundational understanding of ECS",
-                    "Clarify how different stakeholders may engage with the system",
-                    "Explain monitoring, reporting, and verification concepts",
-                    "Introduce how price signals may influence decisions",
-                    "Explain how design choices affect system outcomes",
-                ],
-            }
+    with capacity_tab1:
+
+        st.markdown("### Learning Pathway")
+
+        st.write(
+            "The learning pathway helps stakeholders progressively build understanding of ECS "
+            "concepts and system logic before engaging with consultations or simulation exercises."
         )
-        st.dataframe(modules_df, use_container_width=True)
+
+        pathway_df = pd.DataFrame({
+            "Learning Stage":[
+                "Stage 1 — System Awareness",
+                "Stage 2 — Stakeholder Roles",
+                "Stage 3 — Market Concepts",
+                "Stage 4 — Policy Design Understanding",
+                "Stage 5 — Simulation Preparation"
+            ],
+            "Purpose":[
+                "Understand the role and purpose of ECS policy frameworks.",
+                "Recognize how different stakeholder groups may interact with the system.",
+                "Understand allowances, carbon price signals, and market incentives.",
+                "Understand how design choices influence system outcomes.",
+                "Prepare for interactive simulation and scenario exercises."
+            ]
+        })
+
+        st.dataframe(pathway_df, use_container_width=True, hide_index=True)
+
+    # ---------------------------------------------------
+    # TRAINING RESOURCES
+    # ---------------------------------------------------
 
     with capacity_tab2:
-        st.subheader("Training Resources")
-        st.write("- Introductory guidance notes")
-        st.write("- Recorded workshop materials")
-        st.write("- Slide packs and explanatory summaries")
-        st.write("- Glossary of key ECS terms")
-        st.write("- Frequently asked questions")
-        st.write("- Illustrative exercises and learning prompts")
+
+        st.markdown("### Training Resources")
+
+        r1, r2 = st.columns(2)
+
+        with r1:
+
+            st.markdown("""
+            <div class="engage-card">
+            <div class="engage-title">Guidance Notes</div>
+            <div class="engage-text">
+            Concise briefing notes explaining ECS concepts,
+            market structure, and policy design principles.
+            </div>
+            </div>
+            """, unsafe_allow_html=True)
+
+            st.markdown("""
+            <div class="engage-card">
+            <div class="engage-title">Workshop Materials</div>
+            <div class="engage-text">
+            Presentation slides and workshop summaries used
+            during stakeholder engagement sessions.
+            </div>
+            </div>
+            """, unsafe_allow_html=True)
+
+        with r2:
+
+            st.markdown("""
+            <div class="engage-card">
+            <div class="engage-title">Learning Briefs</div>
+            <div class="engage-text">
+            Short explainers that translate technical policy
+            discussions into accessible stakeholder insights.
+            </div>
+            </div>
+            """, unsafe_allow_html=True)
+
+            st.markdown("""
+            <div class="engage-card">
+            <div class="engage-title">Concept Explainers</div>
+            <div class="engage-text">
+            Practical explanations describing allowances,
+            emissions caps, and price signals.
+            </div>
+            </div>
+            """, unsafe_allow_html=True)
+
+    # ---------------------------------------------------
+    # PRACTICAL GUIDANCE
+    # ---------------------------------------------------
 
     with capacity_tab3:
-        st.subheader("MRV Guidance")
-        st.write(
-            "This section provides simplified guidance on Monitoring, Reporting, and Verification (MRV) "
-            "to support stakeholder awareness and readiness."
-        )
 
-        mrv_df = pd.DataFrame(
-            {
-                "Topic": [
-                    "What is monitored?",
-                    "How reporting works",
-                    "Why verification matters",
-                    "Why data quality matters",
-                ],
-                "Simple Explanation": [
-                    "Stakeholders track relevant emissions-related information.",
-                    "Reported data is submitted using agreed approaches and timelines.",
-                    "Verification helps improve confidence in reported information.",
-                    "Clear and reliable data supports transparency and system credibility.",
-                ],
-            }
-        )
-        st.dataframe(mrv_df, use_container_width=True)
+        st.markdown("### Practical Guidance")
+
+        guidance_df = pd.DataFrame({
+
+            "Topic":[
+                "Allowance Allocation",
+                "Carbon Price Signals",
+                "Monitoring and Reporting Concepts",
+                "Verification and Data Integrity",
+                "Policy Design Choices"
+            ],
+
+            "Purpose":[
+                "Explain how allowances may be distributed within the system.",
+                "Illustrate how carbon pricing influences behavior and investment decisions.",
+                "Explain how emissions-related information may be monitored and reported.",
+                "Highlight why verification supports transparency and credibility.",
+                "Explain how cap levels and allocation design influence market outcomes."
+            ]
+
+        })
+
+        st.dataframe(guidance_df, use_container_width=True, hide_index=True)
+
+    # ---------------------------------------------------
+    # SIMULATION PREPARATION
+    # ---------------------------------------------------
 
     with capacity_tab4:
-        st.subheader("Case Studies & Interactive Explainers")
+
+        st.markdown("### Simulation Preparation")
+
         st.write(
-            "Case studies and explainers can help stakeholders connect ECS concepts to practical examples "
-            "and real policy design questions."
+            "Before participating in ECS simulation exercises, stakeholders can review "
+            "a short user manual explaining how the simulator works and what learning "
+            "objectives each exercise is designed to demonstrate."
         )
 
-        st.markdown("**Examples of learning content**")
-        st.write("- How different sectors may experience transition differently")
-        st.write("- How carbon price signals can influence planning decisions")
-        st.write("- Why consultation matters during ECS design")
-        st.write("- How policy choices may affect market behavior")
-        st.write("- What stakeholders need to understand before implementation")
+        st.markdown("""
+        <div class="resource-card">
+        <div class="resource-meta">User Guide</div>
+        <div class="resource-title">ECS Simulation User Manual</div>
+        <div class="resource-text">
+        A practical guide explaining how to navigate the simulation interface,
+        interpret allowance balances, and explore carbon market scenarios.
+        </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+        st.code("https://ecs-platform/simulation-user-manual")
+
+        st.info(
+            "The simulation manual will support stakeholders interacting with the "
+            "ECS demonstration simulator available in the Simulation section."
+        )
+
+    # ---------------------------------------------------
+    # REFERENCE MATERIALS
+    # ---------------------------------------------------
+
+    with capacity_tab5:
+
+        st.markdown("### Reference Materials")
+
+        c1, c2 = st.columns(2)
+
+        with c1:
+
+            st.markdown("""
+            <div class="resource-card">
+            <div class="resource-meta">Learning Note</div>
+            <div class="resource-title">Understanding Carbon Markets</div>
+            <div class="resource-text">
+            A short explainer introducing the economic logic
+            behind emissions trading systems.
+            </div>
+            </div>
+            """, unsafe_allow_html=True)
+
+        with c2:
+
+            st.markdown("""
+            <div class="resource-card">
+            <div class="resource-meta">Policy Explainer</div>
+            <div class="resource-title">ECS Design Principles</div>
+            <div class="resource-text">
+            A briefing explaining how different design parameters
+            influence system performance and stakeholder incentives.
+            </div>
+            </div>
+            """, unsafe_allow_html=True)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # -------------------------------------------------------
 # SIMULATION & DEMONSTRATION
 # -------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 elif module == "Simulation & Demonstration":
 
-    st.header("ECS Learning Simulation Lab")
+    st.markdown("""
+    <div class="sim-hero">
+        <div class="sim-kicker">Simulation & Demonstration</div>
+        <div class="sim-title">ECS Learning Simulation Lab</div>
+        <div class="sim-subtitle">
+            This lab combines guided learning modules with one integrated linked simulator to help
+            stakeholders explore how ECS design choices, market conditions, firm responses, and
+            emissions outcomes may interact in practice.
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
 
-    st.write(
-        "This simulation lab is designed to help stakeholders understand how an Emissions Compliance "
-        "System (ECS) may function through guided learning exercises. It combines market logic, firm-level "
-        "decision-making, sector pathways, and design choices in one integrated learning environment."
-    )
-
-    st.info(
-        "Illustrative learning simulator only. This module is intended for stakeholder engagement and "
-        "capacity building. It does not represent a live compliance system, registry, or enforcement mechanism."
-    )
+    st.markdown("""
+    <div class="sim-note">
+        <b>Illustrative prototype only.</b> This section is designed for stakeholder learning,
+        engagement, and applied understanding. It includes guided modules for focused learning
+        and one integrated simulator that links design, market dynamics, firm behavior,
+        trading activity, and emissions outcomes.
+    </div>
+    """, unsafe_allow_html=True)
 
     # ---------------------------------------------------
     # RESET
@@ -860,6 +2028,18 @@ elif module == "Simulation & Demonstration":
         "design_banking",
         "design_offsets",
         "learning_exercise",
+        "integrated_cap_type",
+        "integrated_cap_stringency",
+        "integrated_allocation_method",
+        "integrated_banking",
+        "integrated_offsets",
+        "integrated_sector",
+        "integrated_baseline_emissions",
+        "integrated_firm_emissions",
+        "integrated_abatement_cost",
+        "integrated_reduction_potential",
+        "integrated_sector_demand_factor",
+        "integrated_external_market_pressure",
     ]
 
     reset_col1, reset_col2 = st.columns([6, 1])
@@ -926,13 +2106,11 @@ elif module == "Simulation & Demonstration":
 
         selected_scenario = scenario_defaults[scenario]
 
-        st.write("**Current training configuration**")
         cfg1, cfg2, cfg3 = st.columns(3)
         cfg1.metric("Starting Carbon Price", f"${selected_scenario['carbon_price']}/tCO2")
         cfg2.metric("Annual Price Increase", f"{selected_scenario['annual_increase']}")
         cfg3.metric("Reduction Rate", f"{selected_scenario['reduction_rate']}%")
 
-    # default if expander not touched
     if "policy_scenario" not in st.session_state:
         st.session_state["policy_scenario"] = "Conservative Carbon Price"
 
@@ -996,77 +2174,138 @@ elif module == "Simulation & Demonstration":
         ),
     }
 
-    # ---------------------------------------------------
-    # MAIN TABS
-    # ---------------------------------------------------
     sim_tab1, sim_tab2, sim_tab3 = st.tabs(
         [
-            "Simulation Overview",
-            "Interactive ECS Learning Simulator",
+            "Lab Overview",
+            "Modules & Integrated Simulator",
             "Key Insights",
         ]
     )
 
     # ---------------------------------------------------
-    # TAB 1: OVERVIEW
+    # TAB 1: LAB OVERVIEW
     # ---------------------------------------------------
     with sim_tab1:
-        st.subheader("Simulation Overview")
-        st.caption(
-            "Objective: Provide stakeholders with a structured overview of the main ECS learning areas covered in this lab."
+        st.markdown("### Lab Overview")
+        st.write(
+            "This lab includes seven guided modules that explain specific parts of ECS logic, followed by "
+            "one integrated simulator that links design choices, supply, scarcity, price, firm response, "
+            "trading needs, and emissions outcomes."
         )
 
         ov1, ov2, ov3, ov4 = st.columns(4)
-        ov1.metric("Learning Modules", "7")
-        ov2.metric("Firm-Level Exercises", "2")
-        ov3.metric("Market & Pathway Views", "3")
-        ov4.metric("Design Explorer", "1")
+        ov1.metric("Guided Modules", "7")
+        ov2.metric("Integrated Simulator", "1")
+        ov3.metric("Market Topics", "Supply, Price, Trading")
+        ov4.metric("Learning Scope", "Firm + Sector + Design")
 
-        st.markdown("### What stakeholders can learn in this lab")
+        c1, c2 = st.columns(2)
+
+        with c1:
+            st.markdown("""
+            <div class="sim-card">
+                <div class="sim-card-tag">Guided Modules</div>
+                <div class="sim-card-title">Focused learning areas</div>
+                <div class="sim-card-text">
+                    The first seven modules help stakeholders explore specific questions one at a time,
+                    such as firm strategy, market balance, price pathways, and design choices.
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+
+        with c2:
+            st.markdown("""
+            <div class="sim-card">
+                <div class="sim-card-tag">Integrated Simulator</div>
+                <div class="sim-card-title">Linked system behavior</div>
+                <div class="sim-card-text">
+                    The eighth module links policy design, allowance supply, market scarcity,
+                    carbon price, firm response, trading demand, and emissions outcomes in one flow.
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+
+        st.markdown("### Learning Flow")
+        f1, f2, f3, f4 = st.columns(4)
+
+        with f1:
+            st.markdown("""
+            <div class="sim-flow-box">
+                <div class="sim-flow-title">1. Guided understanding</div>
+                <div class="sim-flow-text">
+                    Explore individual concepts such as price signals, market balance, and trading logic.
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+
+        with f2:
+            st.markdown("""
+            <div class="sim-flow-box">
+                <div class="sim-flow-title">2. Design choices</div>
+                <div class="sim-flow-text">
+                    Review how cap design, allocation, and flexibility mechanisms shape system conditions.
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+
+        with f3:
+            st.markdown("""
+            <div class="sim-flow-box">
+                <div class="sim-flow-title">3. Firm response</div>
+                <div class="sim-flow-text">
+                    Assess how firms may respond through abatement, allowance purchasing, or trading.
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+
+        with f4:
+            st.markdown("""
+            <div class="sim-flow-box">
+                <div class="sim-flow-title">4. Linked outcomes</div>
+                <div class="sim-flow-text">
+                    Use the integrated simulator to see how all these elements affect one another.
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
 
         overview_df = pd.DataFrame(
             {
-                "Learning Area": [
-                    "Firm Compliance Strategy",
-                    "Allowance Trading Market",
-                    "Carbon Price Pathways",
-                    "Sector Decarbonization Pathways",
-                    "Allowance Market Balance",
-                    "Carbon Allowance Trading Desk",
-                    "Carbon Market Design Lab",
+                "Module": [
+                    "1. Firm Compliance Strategy",
+                    "2. Allowance Trading Market",
+                    "3. Carbon Price Pathways",
+                    "4. Sector Decarbonization Pathways",
+                    "5. Allowance Market Balance",
+                    "6. Carbon Allowance Trading Desk",
+                    "7. Carbon Market Design Lab",
+                    "8. Integrated ECS Policy & Market Simulator",
                 ],
-                "What it helps explain": [
-                    "How firms compare allowance purchase versus emissions reduction options.",
-                    "How firms with surplus allowances can become sellers while others become buyers.",
-                    "How changing price pathways may affect long-term planning.",
-                    "How transition pathways may differ by sector.",
-                    "How supply and demand interact to create scarcity or surplus.",
-                    "How trades may occur between buyers and sellers in an illustrative market setting.",
-                    "How design choices can shape scarcity, price signals, and stakeholder experience.",
+                "Purpose": [
+                    "Understand how firms compare allowance purchase versus emissions reduction options.",
+                    "See how buyer and seller positions emerge in an allowance market.",
+                    "Understand how price trajectories may influence planning and decisions.",
+                    "Explore how emissions pathways may differ across sectors.",
+                    "Understand how supply and demand create scarcity or surplus pressure.",
+                    "Visualize allowance exchange between firms in a simplified trading environment.",
+                    "Explore how design choices influence supply, scarcity, and price signals.",
+                    "Link policy design, supply, scarcity, price, firm response, trading demand, and emissions outcomes.",
                 ],
             }
         )
-        st.dataframe(overview_df, use_container_width=True)
-
-        st.markdown("### Learning Journey")
-        st.write(
-            "This lab is designed as a stakeholder learning experience rather than a single calculator. "
-            "Users move from understanding firm-level decisions to market dynamics, sector pathways, "
-            "and finally broader ECS design choices."
-        )
+        st.dataframe(overview_df, use_container_width=True, hide_index=True)
 
     # ---------------------------------------------------
-    # TAB 2: INTERACTIVE ECS LEARNING SIMULATOR
+    # TAB 2: MODULES & INTEGRATED SIMULATOR
     # ---------------------------------------------------
     with sim_tab2:
-        st.subheader("Interactive ECS Learning Simulator")
-        st.caption(
-            "Objective: Allow stakeholders to explore how decisions, market conditions, and ECS design choices "
-            "interact within one integrated simulation environment."
+        st.markdown("### Guided Modules and Integrated Simulator")
+        st.write(
+            "Select one guided module to explore a focused learning topic, or choose the integrated simulator "
+            "to examine how system components interact within one linked model."
         )
 
         exercise = st.selectbox(
-            "Select Learning Exercise",
+            "Select Module",
             [
                 "1. Firm Compliance Strategy",
                 "2. Allowance Trading Market",
@@ -1075,18 +2314,15 @@ elif module == "Simulation & Demonstration":
                 "5. Allowance Market Balance",
                 "6. Carbon Allowance Trading Desk",
                 "7. Carbon Market Design Lab",
+                "8. Integrated ECS Policy & Market Simulator",
             ],
             key="learning_exercise",
         )
 
-        # -----------------------------
-        # 1. Firm Compliance Strategy
-        # -----------------------------
+        # 1
         if exercise == "1. Firm Compliance Strategy":
             st.markdown("### 1. Firm Compliance Strategy")
-            st.caption(
-                "Objective: Understand how firms evaluate whether to buy allowances or reduce emissions."
-            )
+            st.caption("Guided module: compare firm responses under different price and abatement conditions.")
 
             col1, col2 = st.columns([1, 1])
 
@@ -1096,56 +2332,27 @@ elif module == "Simulation & Demonstration":
                     list(sector_descriptions.keys()),
                     key="firm_sector",
                 )
-
                 st.caption(sector_descriptions[selected_sector])
 
                 default_price = selected_scenario["carbon_price"]
                 default_allowances = int(80 * selected_scenario["allowance_multiplier"])
                 default_abatement_cost = int(30 * selected_scenario["abatement_cost_multiplier"])
 
-                carbon_price = st.slider(
-                    "Carbon Price ($/tCO2)",
-                    0,
-                    200,
-                    default_price,
-                    key="firm_carbon_price",
-                )
-                emissions = st.number_input(
-                    "Emissions (tCO2)",
-                    min_value=0,
-                    value=100,
-                    key="firm_emissions",
-                )
-                allowances = st.number_input(
-                    "Allowances Available",
-                    min_value=0,
-                    value=default_allowances,
-                    key="firm_allowances",
-                )
-                abatement_cost = st.number_input(
-                    "Abatement Cost ($/tCO2)",
-                    min_value=0,
-                    value=default_abatement_cost,
-                    key="firm_abatement_cost",
-                )
-                abatement_amount = st.number_input(
-                    "Potential Abatement Quantity (tCO2)",
-                    min_value=0,
-                    value=20,
-                    key="firm_abatement_amount",
-                )
+                carbon_price = st.slider("Carbon Price ($/tCO2)", 0, 200, default_price, key="firm_carbon_price")
+                emissions = st.number_input("Emissions (tCO2)", min_value=0, value=100, key="firm_emissions")
+                allowances = st.number_input("Allowances Available", min_value=0, value=default_allowances, key="firm_allowances")
+                abatement_cost = st.number_input("Abatement Cost ($/tCO2)", min_value=0, value=default_abatement_cost, key="firm_abatement_cost")
+                abatement_amount = st.number_input("Potential Abatement Quantity (tCO2)", min_value=0, value=20, key="firm_abatement_amount")
 
             shortfall_before = max(emissions - allowances, 0)
             actual_abatement = min(abatement_amount, emissions)
             emissions_after = max(emissions - actual_abatement, 0)
             shortfall_after = max(emissions_after - allowances, 0)
-            surplus_after = max(allowances - emissions_after, 0)
 
             compliance_cost_before = shortfall_before * carbon_price
             abatement_total_cost = actual_abatement * abatement_cost
             compliance_cost_after = shortfall_after * carbon_price
             total_cost_with_abatement = abatement_total_cost + compliance_cost_after
-            sale_revenue_after = surplus_after * carbon_price
 
             with col2:
                 st.markdown("#### Results")
@@ -1155,56 +2362,28 @@ elif module == "Simulation & Demonstration":
                 st.metric("Abatement + Remaining Purchase", f"${total_cost_with_abatement:,.0f}")
 
             chart_data = pd.DataFrame(
-                {
-                    "Option": ["Buy Only", "Abate + Buy Remaining"],
-                    "Illustrative Cost": [compliance_cost_before, total_cost_with_abatement],
-                }
+                {"Option": ["Buy Only", "Abate + Buy Remaining"], "Illustrative Cost": [compliance_cost_before, total_cost_with_abatement]}
             )
-
-            fig = px.bar(
-                chart_data,
-                x="Option",
-                y="Illustrative Cost",
-                title="Illustrative Compliance Decision Comparison",
-            )
+            fig = px.bar(chart_data, x="Option", y="Illustrative Cost", title="Illustrative Compliance Decision Comparison")
             st.plotly_chart(fig, use_container_width=True)
 
             st.markdown("#### Result Statement")
             if abatement_cost < carbon_price:
-                st.success(
-                    "Illustrative result: abatement appears more attractive than buying allowances alone, "
-                    "because the cost of reducing emissions is lower than the carbon price."
-                )
+                st.success("Illustrative result: abatement appears more attractive because reducing emissions costs less than buying allowances.")
             elif abatement_cost > carbon_price:
-                st.warning(
-                    "Illustrative result: purchasing allowances may appear more attractive in the short term, "
-                    "because the carbon price is lower than the cost of abatement."
-                )
+                st.warning("Illustrative result: purchasing allowances may appear more attractive in the short term because the carbon price is lower than abatement cost.")
             else:
-                st.info(
-                    "Illustrative result: abatement and allowance purchase are broadly similar in cost in this case."
-                )
-
-            st.markdown("#### What This Means")
-            st.write(
-                f"For the **{selected_sector}** sector, this exercise shows how carbon price, allowance availability, "
-                "and abatement cost interact to shape firm decision-making."
-            )
+                st.info("Illustrative result: abatement and allowance purchase are broadly similar in cost in this case.")
 
             st.markdown("#### Learning Takeaway")
             st.write(
-                "Stakeholders can see that firm behavior is influenced not by one number, but by the interaction "
-                "between price signals, allowance availability, and technical abatement options."
+                "This module shows how carbon price, allowance availability, and abatement cost interact to shape firm-level choices."
             )
 
-        # -----------------------------
-        # 2. Allowance Trading Market
-        # -----------------------------
+        # 2
         elif exercise == "2. Allowance Trading Market":
             st.markdown("### 2. Allowance Trading Market")
-            st.caption(
-                "Objective: Illustrate how firms with surpluses become sellers and firms with shortfalls become buyers."
-            )
+            st.caption("Guided module: understand how buyer and seller positions emerge in a simplified market.")
 
             carbon_price_market = st.slider(
                 "Illustrative Market Carbon Price ($/tCO2)",
@@ -1236,36 +2415,19 @@ elif module == "Simulation & Demonstration":
             )
 
             market_df["Position"] = market_df["Allowances"] - market_df["Emissions"]
-            market_df["Status"] = market_df["Position"].apply(
-                lambda x: "Seller" if x > 0 else ("Buyer" if x < 0 else "Balanced")
-            )
-            market_df["Illustrative Cost"] = market_df["Position"].apply(
-                lambda x: abs(x) * carbon_price_market if x < 0 else 0
-            )
+            market_df["Status"] = market_df["Position"].apply(lambda x: "Seller" if x > 0 else ("Buyer" if x < 0 else "Balanced"))
+            market_df["Illustrative Cost"] = market_df["Position"].apply(lambda x: abs(x) * carbon_price_market if x < 0 else 0)
 
             st.dataframe(market_df, use_container_width=True)
 
             col1, col2 = st.columns(2)
-
             with col1:
-                fig_status = px.bar(
-                    market_df,
-                    x="Firm",
-                    y="Position",
-                    color="Status",
-                    title="Illustrative Firm Positions",
-                )
+                fig_status = px.bar(market_df, x="Firm", y="Position", color="Status", title="Illustrative Firm Positions")
                 st.plotly_chart(fig_status, use_container_width=True)
-
             with col2:
                 status_counts = market_df["Status"].value_counts().reset_index()
                 status_counts.columns = ["Status", "Count"]
-                fig_market = px.bar(
-                    status_counts,
-                    x="Status",
-                    y="Count",
-                    title="Buyers vs Sellers",
-                )
+                fig_market = px.bar(status_counts, x="Status", y="Count", title="Buyers vs Sellers")
                 st.plotly_chart(fig_market, use_container_width=True)
 
             buyers = len(market_df[market_df["Status"] == "Buyer"])
@@ -1273,49 +2435,30 @@ elif module == "Simulation & Demonstration":
 
             st.markdown("#### Result Statement")
             st.info(
-                f"Illustrative result: this market view shows **{buyers} buyer(s)** and **{sellers} seller(s)**, "
-                "demonstrating how trading emerges when some firms have shortfalls and others have surpluses."
+                f"Illustrative result: this market view shows **{buyers} buyer(s)** and **{sellers} seller(s)**, demonstrating how trading emerges when some firms have shortfalls and others have surpluses."
             )
 
             st.markdown("#### Learning Takeaway")
-            st.write(
-                "Trading does not occur in isolation. It emerges from differences in firm positions and the balance "
-                "between allowance needs and available supply."
-            )
+            st.write("This module highlights how market participation depends on differences in allowance positions across firms.")
 
-        # -----------------------------
-        # 3. Carbon Price Pathways
-        # -----------------------------
+        # 3
         elif exercise == "3. Carbon Price Pathways":
             st.markdown("### 3. Carbon Price Pathways")
-            st.caption(
-                "Objective: Demonstrate how changing carbon price pathways may influence long-term planning."
-            )
+            st.caption("Guided module: explore how rising or changing prices may influence longer-term planning.")
 
             col1, col2 = st.columns(2)
 
             with col1:
                 start_year = st.number_input("Start Year", 2025, 2050, 2027, key="trajectory_start_year")
                 end_year = st.number_input("End Year", 2026, 2060, 2035, key="trajectory_end_year")
-                initial_price = st.number_input(
-                    "Initial Carbon Price ($/tCO2)",
-                    min_value=0,
-                    value=selected_scenario["carbon_price"],
-                    key="trajectory_initial_price",
-                )
-                annual_increase = st.number_input(
-                    "Annual Price Increase ($/tCO2)",
-                    min_value=0,
-                    value=selected_scenario["annual_increase"],
-                    key="trajectory_annual_increase",
-                )
+                initial_price = st.number_input("Initial Carbon Price ($/tCO2)", min_value=0, value=selected_scenario["carbon_price"], key="trajectory_initial_price")
+                annual_increase = st.number_input("Annual Price Increase ($/tCO2)", min_value=0, value=selected_scenario["annual_increase"], key="trajectory_annual_increase")
 
             if end_year <= start_year:
                 st.warning("End Year must be greater than Start Year.")
             else:
                 years = list(range(start_year, end_year + 1))
                 prices = [initial_price + annual_increase * (year - start_year) for year in years]
-
                 trajectory_df = pd.DataFrame({"Year": years, "Carbon Price": prices})
 
                 with col2:
@@ -1323,75 +2466,31 @@ elif module == "Simulation & Demonstration":
                     st.metric("Ending Price", f"${prices[-1]}/tCO2")
                     st.metric("Years Covered", len(years))
 
-                fig_price = px.line(
-                    trajectory_df,
-                    x="Year",
-                    y="Carbon Price",
-                    markers=True,
-                    title="Illustrative Carbon Price Path",
-                )
+                fig_price = px.line(trajectory_df, x="Year", y="Carbon Price", markers=True, title="Illustrative Carbon Price Path")
                 st.plotly_chart(fig_price, use_container_width=True)
                 st.dataframe(trajectory_df, use_container_width=True)
 
                 st.markdown("#### Result Statement")
-                st.info(
-                    f"Illustrative result: the carbon price rises from **${initial_price}/tCO2** "
-                    f"to **${prices[-1]}/tCO2** over the selected period."
-                )
+                st.info(f"Illustrative result: the carbon price rises from **${initial_price}/tCO2** to **${prices[-1]}/tCO2** over the selected period.")
 
                 st.markdown("#### Learning Takeaway")
-                st.write(
-                    "A rising price path may strengthen the investment signal for lower-carbon technologies "
-                    "and influence the timing of firm decisions."
-                )
+                st.write("This module shows how price pathways can shape the timing of investment and abatement decisions.")
 
-        # -----------------------------
-        # 4. Sector Decarbonization Pathways
-        # -----------------------------
+        # 4
         elif exercise == "4. Sector Decarbonization Pathways":
             st.markdown("### 4. Sector Decarbonization Pathways")
-            st.caption(
-                "Objective: Show how the pace of emissions reduction may differ by sector."
-            )
+            st.caption("Guided module: examine how emissions pathways may differ by sector.")
 
             col1, col2 = st.columns(2)
 
             with col1:
-                pathway_sector = st.selectbox(
-                    "Sector",
-                    list(sector_descriptions.keys()),
-                    key="pathway_sector",
-                )
-
+                pathway_sector = st.selectbox("Sector", list(sector_descriptions.keys()), key="pathway_sector")
                 st.caption(sector_descriptions[pathway_sector])
 
-                baseline_emissions = st.number_input(
-                    "Baseline Emissions (tCO2)",
-                    min_value=0,
-                    value=1000,
-                    key="pathway_baseline_emissions",
-                )
-                annual_reduction_rate = st.slider(
-                    "Annual Reduction Rate (%)",
-                    0,
-                    20,
-                    selected_scenario["reduction_rate"],
-                    key="pathway_reduction_rate",
-                )
-                start_year_path = st.number_input(
-                    "Pathway Start Year",
-                    min_value=2025,
-                    max_value=2050,
-                    value=2027,
-                    key="pathway_start_year",
-                )
-                end_year_path = st.number_input(
-                    "Pathway End Year",
-                    min_value=2026,
-                    max_value=2060,
-                    value=2035,
-                    key="pathway_end_year",
-                )
+                baseline_emissions = st.number_input("Baseline Emissions (tCO2)", min_value=0, value=1000, key="pathway_baseline_emissions")
+                annual_reduction_rate = st.slider("Annual Reduction Rate (%)", 0, 20, selected_scenario["reduction_rate"], key="pathway_reduction_rate")
+                start_year_path = st.number_input("Pathway Start Year", min_value=2025, max_value=2050, value=2027, key="pathway_start_year")
+                end_year_path = st.number_input("Pathway End Year", min_value=2026, max_value=2060, value=2035, key="pathway_end_year")
 
             if end_year_path <= start_year_path:
                 st.warning("Pathway End Year must be greater than Pathway Start Year.")
@@ -1404,10 +2503,7 @@ elif module == "Simulation & Demonstration":
                     emissions_path.append(current_emissions)
                     current_emissions = current_emissions * (1 - annual_reduction_rate / 100)
 
-                pathway_df = pd.DataFrame(
-                    {"Year": years, "Emissions": emissions_path, "Sector": pathway_sector}
-                )
-
+                pathway_df = pd.DataFrame({"Year": years, "Emissions": emissions_path, "Sector": pathway_sector})
                 cumulative_reduction = baseline_emissions - emissions_path[-1]
 
                 with col2:
@@ -1415,46 +2511,25 @@ elif module == "Simulation & Demonstration":
                     st.metric("Final Year Emissions", f"{emissions_path[-1]:,.0f} tCO2")
                     st.metric("Illustrative Reduction", f"{cumulative_reduction:,.0f} tCO2")
 
-                fig_path = px.line(
-                    pathway_df,
-                    x="Year",
-                    y="Emissions",
-                    markers=True,
-                    title=f"Illustrative Emissions Pathway: {pathway_sector}",
-                )
+                fig_path = px.line(pathway_df, x="Year", y="Emissions", markers=True, title=f"Illustrative Emissions Pathway: {pathway_sector}")
                 st.plotly_chart(fig_path, use_container_width=True)
                 st.dataframe(pathway_df, use_container_width=True)
 
                 st.markdown("#### Result Statement")
-                st.info(
-                    f"Illustrative result: under the selected assumptions, emissions in **{pathway_sector}** "
-                    f"decline by approximately **{cumulative_reduction:,.0f} tCO2** over the pathway period."
-                )
+                st.info(f"Illustrative result: under the selected assumptions, emissions in **{pathway_sector}** decline by approximately **{cumulative_reduction:,.0f} tCO2** over the pathway period.")
 
                 st.markdown("#### Learning Takeaway")
-                st.write(
-                    "Different sectors may face different transition speeds depending on technology availability, "
-                    "costs, and policy signals."
-                )
+                st.write("This module shows that sector pathways may vary depending on cost, technology, and policy signals.")
 
-        # -----------------------------
-        # 5. Allowance Market Balance
-        # -----------------------------
+        # 5
         elif exercise == "5. Allowance Market Balance":
             st.markdown("### 5. Allowance Market Balance")
-            st.caption(
-                "Objective: Understand how total supply and demand interact to shape scarcity pressure."
-            )
+            st.caption("Guided module: understand how allowance supply and demand shape market conditions.")
 
             col1, col2 = st.columns(2)
 
             with col1:
-                total_supply = st.number_input(
-                    "Total Allowance Supply",
-                    min_value=0,
-                    value=int(400 * selected_scenario["supply_multiplier"]),
-                    key="market_supply",
-                )
+                total_supply = st.number_input("Total Allowance Supply", min_value=0, value=int(400 * selected_scenario["supply_multiplier"]), key="market_supply")
                 demand_power = st.number_input("Demand: Power and Utilities", min_value=0, value=120, key="demand_power")
                 demand_cement = st.number_input("Demand: Cement and Construction Materials", min_value=0, value=90, key="demand_cement")
                 demand_petrochem = st.number_input("Demand: Petrochemical Value Chains", min_value=0, value=100, key="demand_petrochem")
@@ -1489,40 +2564,24 @@ elif module == "Simulation & Demonstration":
                 }
             )
 
-            fig_balance = px.bar(
-                supply_demand_df,
-                x="Category",
-                y="Value",
-                title="Illustrative Allowance Supply and Demand",
-            )
+            fig_balance = px.bar(supply_demand_df, x="Category", y="Value", title="Illustrative Allowance Supply and Demand")
             st.plotly_chart(fig_balance, use_container_width=True)
 
             st.markdown("#### Result Statement")
             if market_gap > 0:
-                st.success(
-                    f"Illustrative result: supply exceeds demand by **{market_gap:,.0f}**, suggesting lower scarcity pressure."
-                )
+                st.success(f"Illustrative result: supply exceeds demand by **{market_gap:,.0f}**, suggesting lower scarcity pressure.")
             elif market_gap < 0:
-                st.warning(
-                    f"Illustrative result: demand exceeds supply by **{abs(market_gap):,.0f}**, suggesting higher scarcity pressure."
-                )
+                st.warning(f"Illustrative result: demand exceeds supply by **{abs(market_gap):,.0f}**, suggesting higher scarcity pressure.")
             else:
                 st.info("Illustrative result: supply and demand are balanced in this case.")
 
             st.markdown("#### Learning Takeaway")
-            st.write(
-                "Allowance scarcity is not fixed. It depends on the relationship between system-wide supply "
-                "and demand across covered sectors."
-            )
+            st.write("This module demonstrates that market pressure depends on the relationship between supply and demand.")
 
-        # -----------------------------
-        # 6. Carbon Allowance Trading Desk
-        # -----------------------------
+        # 6
         elif exercise == "6. Carbon Allowance Trading Desk":
             st.markdown("### 6. Carbon Allowance Trading Desk")
-            st.caption(
-                "Objective: Demonstrate how firms may buy and sell allowances in a simplified trading environment."
-            )
+            st.caption("Guided module: demonstrate allowance exchange between firms in a simplified market.")
 
             if "firms_data" not in st.session_state:
                 st.session_state.firms_data = pd.DataFrame({
@@ -1531,10 +2590,7 @@ elif module == "Simulation & Demonstration":
                     "Emissions": [120, 90, 150, 110],
                     "Allowances": [100, 110, 130, 120],
                 })
-                st.session_state.firms_data["Position"] = (
-                    st.session_state.firms_data["Allowances"]
-                    - st.session_state.firms_data["Emissions"]
-                )
+                st.session_state.firms_data["Position"] = st.session_state.firms_data["Allowances"] - st.session_state.firms_data["Emissions"]
 
             if "trade_log" not in st.session_state:
                 st.session_state.trade_log = []
@@ -1542,13 +2598,7 @@ elif module == "Simulation & Demonstration":
             firms_data = st.session_state.firms_data
             st.dataframe(firms_data, use_container_width=True)
 
-            carbon_price_trade = st.slider(
-                "Current Carbon Price ($/tCO2)",
-                20,
-                150,
-                selected_scenario["carbon_price"],
-                key="trading_carbon_price",
-            )
+            carbon_price_trade = st.slider("Current Carbon Price ($/tCO2)", 20, 150, selected_scenario["carbon_price"], key="trading_carbon_price")
 
             buyers = firms_data[firms_data["Position"] < 0]["Firm"].tolist()
             sellers = firms_data[firms_data["Position"] > 0]["Firm"].tolist()
@@ -1563,13 +2613,7 @@ elif module == "Simulation & Demonstration":
                 seller_surplus = firms_data.loc[firms_data["Firm"] == seller, "Position"].values[0]
                 max_trade = int(min(buyer_gap, seller_surplus))
 
-                quantity = st.number_input(
-                    "Allowances to Trade",
-                    min_value=1,
-                    max_value=max_trade if max_trade > 0 else 1,
-                    value=1,
-                    key="trade_quantity",
-                )
+                quantity = st.number_input("Allowances to Trade", min_value=1, max_value=max_trade if max_trade > 0 else 1, value=1, key="trade_quantity")
 
                 if st.button("Execute Trade"):
                     buyer_idx = firms_data[firms_data["Firm"] == buyer].index[0]
@@ -1577,11 +2621,7 @@ elif module == "Simulation & Demonstration":
 
                     st.session_state.firms_data.loc[buyer_idx, "Allowances"] += quantity
                     st.session_state.firms_data.loc[seller_idx, "Allowances"] -= quantity
-
-                    st.session_state.firms_data["Position"] = (
-                        st.session_state.firms_data["Allowances"]
-                        - st.session_state.firms_data["Emissions"]
-                    )
+                    st.session_state.firms_data["Position"] = st.session_state.firms_data["Allowances"] - st.session_state.firms_data["Emissions"]
 
                     st.session_state.trade_log.append({
                         "Buyer": buyer,
@@ -1591,9 +2631,7 @@ elif module == "Simulation & Demonstration":
                         "Value": quantity * carbon_price_trade,
                     })
 
-                    st.success(
-                        f"Illustrative trade executed: {buyer} purchased {quantity} allowances from {seller}."
-                    )
+                    st.success(f"Illustrative trade executed: {buyer} purchased {quantity} allowances from {seller}.")
                     st.rerun()
             else:
                 st.warning("No valid buyers or sellers are currently available in this illustrative market state.")
@@ -1612,50 +2650,28 @@ elif module == "Simulation & Demonstration":
                     "Emissions": [120, 90, 150, 110],
                     "Allowances": [100, 110, 130, 120],
                 })
-                st.session_state.firms_data["Position"] = (
-                    st.session_state.firms_data["Allowances"]
-                    - st.session_state.firms_data["Emissions"]
-                )
+                st.session_state.firms_data["Position"] = st.session_state.firms_data["Allowances"] - st.session_state.firms_data["Emissions"]
                 st.session_state.trade_log = []
                 st.rerun()
 
             st.markdown("#### Result Statement")
             st.info(
-                "Illustrative result: trades can occur when one firm faces a shortfall and another holds a surplus. "
-                "This demonstrates the role of trading in balancing positions across participants."
+                "Illustrative result: trades can occur when one firm faces a shortfall and another holds a surplus."
             )
 
             st.markdown("#### Learning Takeaway")
-            st.write(
-                "The trading desk helps stakeholders visualize how allowance exchange may work in a simplified market environment."
-            )
+            st.write("This module helps stakeholders visualize how market exchange may work in practice.")
 
-        # -----------------------------
-        # 7. Carbon Market Design Lab
-        # -----------------------------
+        # 7
         elif exercise == "7. Carbon Market Design Lab":
             st.markdown("### 7. Carbon Market Design Lab")
-            st.caption(
-                "Objective: Explore how ECS design choices can shape allowance scarcity and price signals."
-            )
+            st.caption("Guided module: explore how ECS design choices may shape scarcity and price signals.")
 
             col1, col2 = st.columns(2)
 
             with col1:
-                cap_type = st.selectbox(
-                    "Cap Design",
-                    ["Absolute Cap", "Intensity-Based Cap"],
-                    key="design_cap_type",
-                )
-
-                cap_stringency = st.slider(
-                    "Cap Stringency (% reduction)",
-                    5,
-                    50,
-                    20,
-                    key="design_cap_stringency",
-                )
-
+                cap_type = st.selectbox("Cap Design", ["Absolute Cap", "Intensity-Based Cap"], key="design_cap_type")
+                cap_stringency = st.slider("Cap Stringency (% reduction)", 5, 50, 20, key="design_cap_stringency")
                 allocation_method = st.selectbox(
                     "Allocation Method",
                     [
@@ -1666,23 +2682,8 @@ elif module == "Simulation & Demonstration":
                     ],
                     key="design_allocation_method",
                 )
-
-                price_floor = st.slider(
-                    "Price Floor ($/tCO2)",
-                    0,
-                    100,
-                    20,
-                    key="design_price_floor",
-                )
-
-                price_ceiling = st.slider(
-                    "Price Ceiling ($/tCO2)",
-                    50,
-                    200,
-                    120,
-                    key="design_price_ceiling",
-                )
-
+                price_floor = st.slider("Price Floor ($/tCO2)", 0, 100, 20, key="design_price_floor")
+                price_ceiling = st.slider("Price Ceiling ($/tCO2)", 50, 200, 120, key="design_price_ceiling")
                 banking_allowed = st.checkbox("Banking Allowed", value=True, key="design_banking")
                 offsets_allowed = st.checkbox("Offsets Allowed", value=False, key="design_offsets")
 
@@ -1716,74 +2717,425 @@ elif module == "Simulation & Demonstration":
                 st.metric("Allowance Supply", f"{allowance_supply:,.0f}")
                 st.metric("Adjusted Market Demand", f"{adjusted_market_demand:,.0f}")
                 st.metric("Estimated Carbon Price", f"${estimated_price:,.0f}")
-                st.metric(
-                    "Market Condition",
-                    "Scarcity" if scarcity > 0 else ("Surplus" if scarcity < 0 else "Balanced")
-                )
+                st.metric("Market Condition", "Scarcity" if scarcity > 0 else ("Surplus" if scarcity < 0 else "Balanced"))
 
             design_df = pd.DataFrame(
-                {
-                    "Category": ["Allowance Supply", "Adjusted Market Demand"],
-                    "Value": [allowance_supply, adjusted_market_demand],
-                }
+                {"Category": ["Allowance Supply", "Adjusted Market Demand"], "Value": [allowance_supply, adjusted_market_demand]}
             )
 
-            fig_design = px.bar(
-                design_df,
-                x="Category",
-                y="Value",
-                title="Market Balance Under Selected Design",
-            )
+            fig_design = px.bar(design_df, x="Category", y="Value", title="Market Balance Under Selected Design")
             st.plotly_chart(fig_design, use_container_width=True)
 
             st.markdown("#### Result Statement")
-            st.info(
-                f"Illustrative result: the selected design produces an estimated carbon price of "
-                f"**${estimated_price:,.0f}/tCO2** under the current assumptions."
-            )
-
-            st.markdown("#### Design Summary")
-            st.write(f"- Cap design: **{cap_type}**")
-            st.write(f"- Cap stringency: **{cap_stringency}%**")
-            st.write(f"- Allocation method: **{allocation_method}**")
-            st.write(f"- Price floor: **${price_floor}/tCO2**")
-            st.write(f"- Price ceiling: **${price_ceiling}/tCO2**")
-            st.write(f"- Banking allowed: **{'Yes' if banking_allowed else 'No'}**")
-            st.write(f"- Offsets allowed: **{'Yes' if offsets_allowed else 'No'}**")
+            st.info(f"Illustrative result: the selected design produces an estimated carbon price of **${estimated_price:,.0f}/tCO2** under the current assumptions.")
 
             st.markdown("#### Learning Takeaway")
-            st.write(
-                "ECS outcomes are shaped not only by market behavior but also by policy design choices "
-                "such as cap type, stringency, allocation, and price containment."
+            st.write("This module shows how cap design, allocation, and flexibility settings can shape market conditions.")
+
+
+
+
+
+
+
+
+
+
+
+
+        # 8
+        elif exercise == "8. Integrated ECS Policy & Market Simulator":
+            st.markdown("### 8. Integrated ECS Policy & Market Simulator")
+            st.caption(
+                "Integrated simulator: link policy design, allowance supply, market scarcity, carbon price, "
+                "firm response, trading need, and emissions outcomes in one connected scenario flow."
             )
+
+            # ---------------------------------
+            # Scenario defaults from Administrator View
+            # ---------------------------------
+            active_scenario = st.session_state.get("policy_scenario", "Conservative Carbon Price")
+            scenario_cfg = scenario_defaults[active_scenario]
+
+            st.markdown("""
+            <div class="sim-result-box">
+                <b>Administrator scenario applied:</b> The integrated simulator starts from the training scenario
+                selected in the Administrator View. Stakeholders can then adjust assumptions and run the scenario.
+            </div>
+            """, unsafe_allow_html=True)
+
+            s1, s2, s3, s4 = st.columns(4)
+            s1.metric("Scenario", active_scenario)
+            s2.metric("Starting Carbon Price", f"${scenario_cfg['carbon_price']}/tCO2")
+            s3.metric("Annual Price Increase", f"{scenario_cfg['annual_increase']}")
+            s4.metric("Reduction Rate", f"{scenario_cfg['reduction_rate']}%")
+
+            st.markdown("### Linked Flow")
+            st.write(
+                "Cap design → allowance supply → market scarcity → carbon price → firm decisions → trading need → sector emissions outcomes"
+            )
+
+            # ---------------------------------
+            # Step 1: Policy Design
+            # ---------------------------------
+            st.markdown("### Step 1: Policy Design")
+
+            dcol1, dcol2 = st.columns(2)
+
+            with dcol1:
+                st.markdown("""
+                <div class="sim-step-card">
+                    <div class="sim-step-title">Policy design assumptions</div>
+                    <div class="sim-step-text">
+                        These settings shape allowance supply and affect the market conditions faced by participants.
+                    </div>
+                </div>
+                """, unsafe_allow_html=True)
+
+                cap_type = st.selectbox(
+                    "Cap Design",
+                    ["Absolute Cap", "Intensity-Based Cap"],
+                    key="integrated_cap_type",
+                )
+
+                cap_stringency = st.slider(
+                    "Cap Stringency (% reduction)",
+                    5,
+                    50,
+                    20,
+                    key="integrated_cap_stringency",
+                )
+
+                allocation_method = st.selectbox(
+                    "Allocation Method",
+                    [
+                        "Auctioning",
+                        "Free Allocation (Benchmarking)",
+                        "Free Allocation (Grandparenting)",
+                        "Hybrid Allocation",
+                    ],
+                    key="integrated_allocation_method",
+                )
+
+            with dcol2:
+                st.markdown("""
+                <div class="sim-step-card">
+                    <div class="sim-step-title">Flexibility settings</div>
+                    <div class="sim-step-text">
+                        These settings influence how constrained or flexible the market may be under the scenario.
+                    </div>
+                </div>
+                """, unsafe_allow_html=True)
+
+                banking_allowed = st.checkbox(
+                    "Banking Allowed",
+                    value=True,
+                    key="integrated_banking",
+                )
+
+                offsets_allowed = st.checkbox(
+                    "Offsets Allowed",
+                    value=False,
+                    key="integrated_offsets",
+                )
+
+                covered_sector = st.selectbox(
+                    "Illustrative Sector",
+                    list(sector_descriptions.keys()),
+                    key="integrated_sector",
+                )
+
+            # ---------------------------------
+            # Step 2: Market and Firm Assumptions
+            # ---------------------------------
+            st.markdown("### Step 2: Market and Firm Assumptions")
+
+            mcol1, mcol2 = st.columns(2)
+
+            with mcol1:
+                st.markdown("""
+                <div class="sim-step-card">
+                    <div class="sim-step-title">Sector-level assumptions</div>
+                    <div class="sim-step-text">
+                        These assumptions shape baseline demand and the broader emissions context for the selected sector.
+                    </div>
+                </div>
+                """, unsafe_allow_html=True)
+
+                baseline_emissions = st.number_input(
+                    "Baseline Sector Emissions (tCO2)",
+                    min_value=100,
+                    value=1000,
+                    key="integrated_baseline_emissions",
+                )
+
+                sector_demand_factor = st.slider(
+                    "Sector Demand Pressure",
+                    50,
+                    150,
+                    100,
+                    key="integrated_sector_demand_factor",
+                )
+
+                external_market_pressure = st.slider(
+                    "External Market Pressure",
+                    0,
+                    50,
+                    10,
+                    key="integrated_external_market_pressure",
+                )
+
+            with mcol2:
+                st.markdown("""
+                <div class="sim-step-card">
+                    <div class="sim-step-title">Firm-level assumptions</div>
+                    <div class="sim-step-text">
+                        These assumptions shape how one illustrative firm may respond under the resulting market conditions.
+                    </div>
+                </div>
+                """, unsafe_allow_html=True)
+
+                firm_emissions = st.number_input(
+                    "Illustrative Firm Emissions (tCO2)",
+                    min_value=10,
+                    value=120,
+                    key="integrated_firm_emissions",
+                )
+
+                abatement_cost = st.number_input(
+                    "Firm Abatement Cost ($/tCO2)",
+                    min_value=0,
+                    value=int(40 * scenario_cfg["abatement_cost_multiplier"]),
+                    key="integrated_abatement_cost",
+                )
+
+                reduction_potential = st.slider(
+                    "Potential Abatement Quantity (tCO2)",
+                    0,
+                    100,
+                    25,
+                    key="integrated_reduction_potential",
+                )
+
+            # ---------------------------------
+            # Run button
+            # ---------------------------------
+            run_sim = st.button("Run Simulation", type="primary")
+
+            if run_sim:
+                # ---------------------------------
+                # Step 3: Linked simulation engine
+                # ---------------------------------
+                base_supply = 1000
+
+                if cap_type == "Absolute Cap":
+                    allowance_supply = base_supply * (1 - cap_stringency / 100)
+                else:
+                    allowance_supply = (base_supply * 0.95) * (1 - (cap_stringency * 0.8) / 100)
+
+                allowance_supply = allowance_supply * scenario_cfg["allowance_multiplier"]
+
+                if allocation_method == "Auctioning":
+                    demand_adjustment = 40
+                elif allocation_method == "Hybrid Allocation":
+                    demand_adjustment = 20
+                elif allocation_method == "Free Allocation (Benchmarking)":
+                    demand_adjustment = 5
+                else:
+                    demand_adjustment = -10
+
+                if banking_allowed:
+                    demand_adjustment += 10
+                if offsets_allowed:
+                    demand_adjustment -= 25
+
+                sector_demand = (baseline_emissions * sector_demand_factor) / 100
+                total_market_demand = sector_demand + external_market_pressure + demand_adjustment
+
+                market_balance = allowance_supply - total_market_demand
+                scarcity = total_market_demand - allowance_supply
+
+                raw_carbon_price = scenario_cfg["carbon_price"] + (scarcity * 0.08)
+                carbon_price = max(5, round(raw_carbon_price, 1))
+
+                illustrative_allowances_for_firm = allowance_supply / 10
+                shortfall_before = max(firm_emissions - illustrative_allowances_for_firm, 0)
+
+                actual_abatement = min(reduction_potential, firm_emissions)
+
+                if abatement_cost < carbon_price:
+                    firm_decision = "Abate first"
+                    emissions_after = max(firm_emissions - actual_abatement, 0)
+                else:
+                    firm_decision = "Buy allowances first"
+                    emissions_after = firm_emissions
+
+                shortfall_after = max(emissions_after - illustrative_allowances_for_firm, 0)
+                surplus_after = max(illustrative_allowances_for_firm - emissions_after, 0)
+
+                trading_volume = shortfall_after
+                final_sector_emissions = max(baseline_emissions - actual_abatement, 0)
+
+                buy_cost_before = shortfall_before * carbon_price
+                abatement_total_cost = actual_abatement * abatement_cost
+                buy_cost_after = shortfall_after * carbon_price
+                combined_cost = abatement_total_cost + buy_cost_after
+
+                # ---------------------------------
+                # Step 4: Results
+                # ---------------------------------
+                st.markdown("### Step 3: Integrated Results")
+
+                r1, r2, r3, r4 = st.columns(4)
+                r1.metric("Allowance Supply", f"{allowance_supply:,.0f}")
+                r2.metric("Market Demand", f"{total_market_demand:,.0f}")
+                r3.metric("Carbon Price", f"${carbon_price}/tCO2")
+                r4.metric("Trading Volume", f"{trading_volume:,.0f}")
+
+                r5, r6, r7, r8 = st.columns(4)
+                r5.metric("Shortfall Before Action", f"{shortfall_before:,.0f}")
+                r6.metric("Shortfall After Action", f"{shortfall_after:,.0f}")
+                r7.metric("Final Sector Emissions", f"{final_sector_emissions:,.0f}")
+                r8.metric("Firm Decision", firm_decision)
+
+                result_df = pd.DataFrame(
+                    {
+                        "Stage": [
+                            "Allowance Supply",
+                            "Market Demand",
+                            "Shortfall Before Action",
+                            "Shortfall After Action",
+                            "Final Sector Emissions",
+                        ],
+                        "Value": [
+                            allowance_supply,
+                            total_market_demand,
+                            shortfall_before,
+                            shortfall_after,
+                            final_sector_emissions,
+                        ],
+                    }
+                )
+
+                fig_integrated = px.bar(
+                    result_df,
+                    x="Stage",
+                    y="Value",
+                    title="Integrated ECS Simulation Results",
+                )
+                st.plotly_chart(fig_integrated, use_container_width=True)
+
+                # comparison chart
+                compare_df = pd.DataFrame(
+                    {
+                        "Decision Option": ["Buy Only", "Abate + Buy Remaining"],
+                        "Illustrative Cost": [buy_cost_before, combined_cost],
+                    }
+                )
+
+                fig_compare = px.bar(
+                    compare_df,
+                    x="Decision Option",
+                    y="Illustrative Cost",
+                    title="Illustrative Firm Response Comparison",
+                )
+                st.plotly_chart(fig_compare, use_container_width=True)
+
+                st.markdown("### System Interpretation")
+
+                c1, c2 = st.columns(2)
+
+                with c1:
+                    st.markdown("""
+                    <div class="sim-step-card">
+                        <div class="sim-step-title">What happened in the market?</div>
+                        <div class="sim-step-text">
+                    """, unsafe_allow_html=True)
+
+                    st.write(f"- Policy design produced an allowance supply of **{allowance_supply:,.0f}**.")
+                    st.write(f"- Market demand was estimated at **{total_market_demand:,.0f}**.")
+                    st.write(f"- Market balance was **{market_balance:,.0f}**.")
+                    st.write(f"- The resulting illustrative carbon price was **${carbon_price}/tCO2**.")
+
+                    st.markdown("</div></div>", unsafe_allow_html=True)
+
+                with c2:
+                    st.markdown("""
+                    <div class="sim-step-card">
+                        <div class="sim-step-title">How did the firm respond?</div>
+                        <div class="sim-step-text">
+                    """, unsafe_allow_html=True)
+
+                    st.write(f"- The firm started with a shortfall of **{shortfall_before:,.0f}**.")
+                    st.write(f"- Preferred response under this scenario: **{firm_decision}**.")
+                    st.write(f"- Remaining shortfall after action: **{shortfall_after:,.0f}**.")
+                    st.write(f"- Trading need was estimated at **{trading_volume:,.0f} allowances**.")
+
+                    st.markdown("</div></div>", unsafe_allow_html=True)
+
+                st.markdown("### Result Statement")
+                if scarcity > 0 and abatement_cost < carbon_price:
+                    st.success(
+                        "Illustrative result: tighter market conditions increase the price signal, which makes abatement more attractive and reduces final emissions while still leaving some trading demand."
+                    )
+                elif scarcity > 0 and abatement_cost > carbon_price:
+                    st.warning(
+                        "Illustrative result: the market is scarce and the carbon price rises, but the firm still finds allowance purchasing more attractive than abatement in the short term."
+                    )
+                else:
+                    st.info(
+                        "Illustrative result: supply is relatively sufficient compared with demand, which reduces scarcity pressure and weakens the incentive for stronger abatement."
+                    )
+
+                st.markdown("### Learning Takeaway")
+                st.write(
+                    "This integrated simulator links policy design, allowance supply, scarcity, carbon price, firm behavior, trading need, and emissions outcomes within one connected scenario flow. It is the part of the lab where the system behaves as one linked model rather than as separate guided modules."
+                )
+
+            else:
+                st.markdown("""
+                <div class="sim-result-box">
+                    Configure the scenario assumptions above, then click <b>Run Simulation</b> to generate
+                    linked market and firm outcomes.
+                </div>
+                """, unsafe_allow_html=True)
 
     # ---------------------------------------------------
     # TAB 3: KEY INSIGHTS
     # ---------------------------------------------------
     with sim_tab3:
-        st.subheader("Key Insights")
-        st.caption(
-            "Objective: Summarize the main learning points stakeholders should take away from the simulation lab."
-        )
+        st.markdown("### Key Insights")
 
         insight_col1, insight_col2 = st.columns(2)
 
         with insight_col1:
-            st.markdown("### Firm and Market Behavior")
-            st.write("- Firms with lower abatement costs may reduce emissions earlier.")
-            st.write("- Firms with allowance surpluses may become potential sellers.")
-            st.write("- Higher carbon prices strengthen incentives to abate rather than buy.")
-            st.write("- Scarcity conditions can increase market pressure on buyers.")
+            st.markdown("""
+            <div class="sim-card">
+                <div class="sim-card-tag">Guided Modules</div>
+                <div class="sim-card-title">Focused learning across specific topics</div>
+                <div class="sim-card-text">
+                    The first seven modules help stakeholders understand individual ECS concepts,
+                    such as price signals, market balance, trading logic, firm choices,
+                    and sector pathways, one topic at a time.
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
 
         with insight_col2:
-            st.markdown("### System and Design Implications")
-            st.write("- Clear price pathways support planning and investment decisions.")
-            st.write("- Sector transition pathways may differ significantly.")
-            st.write("- Market balance depends on overall supply and demand.")
-            st.write("- Design choices shape price signals and stakeholder experience.")
+            st.markdown("""
+            <div class="sim-card">
+                <div class="sim-card-tag">Integrated Simulator</div>
+                <div class="sim-card-title">Linked system behavior</div>
+                <div class="sim-card-text">
+                    The eighth module brings policy design, market dynamics, firm response,
+                    trading need, and emissions outcomes together within one linked scenario flow.
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
 
-        st.markdown("### Final Learning Message")
-        st.success(
-            "This lab is designed to help stakeholders understand ECS logic through guided simulation exercises. "
-            "It is not a calculator or operational market tool; it is a structured learning environment."
-        )
+        st.markdown("""
+        <div class="sim-note">
+            The lab is strongest when the guided modules are used to understand individual concepts first,
+            and the integrated simulator is then used to test how those concepts interact within one scenario.
+        </div>
+        """, unsafe_allow_html=True)

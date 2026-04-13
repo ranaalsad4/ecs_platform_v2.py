@@ -13,6 +13,38 @@ st.set_page_config(
     layout="wide"
 )
 
+# Simple login credentials
+USERNAME = "ecs_demo"
+PASSWORD = "ecs2026"
+
+# Session state to track login
+if "authenticated" not in st.session_state:
+    st.session_state.authenticated = False
+
+# Login screen
+if not st.session_state.authenticated:
+    st.title("ECS Stakeholder Platform Access")
+
+    st.write("Please enter credentials to access the ECS prototype platform.")
+
+    username = st.text_input("Username")
+    password = st.text_input("Password", type="password")
+
+    if st.button("Login"):
+        if username == USERNAME and password == PASSWORD:
+            st.session_state.authenticated = True
+            st.rerun()
+        else:
+            st.error("Invalid username or password")
+
+    st.stop()
+st.info("This platform is an illustrative prototype for stakeholder engagement and capacity building for the Emissions Compliance System (ECS).")
+
+import os
+from datetime import datetime
+
+
+
 
 
 
